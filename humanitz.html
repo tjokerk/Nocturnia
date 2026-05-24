@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOCTURNIA | HumanitZ — Coming Soon</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; background: #03050a; font-family: 'Orbitron', sans-serif; }
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px);
+    pointer-events: none; z-index: 9999;
+  }
+  .wrap {
+    height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center; padding: 2rem;
+  }
+  .tag {
+    font-family: 'Share Tech Mono', monospace; font-size: 0.65rem;
+    letter-spacing: 0.3em; color: #ff4444; text-transform: uppercase; margin-bottom: 1.5rem;
+  }
+  h1 {
+    font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 900;
+    color: #ff4444; letter-spacing: 0.05em; text-shadow: 0 0 60px rgba(255,50,50,0.4);
+    margin-bottom: 1rem;
+  }
+  p {
+    font-family: 'Share Tech Mono', monospace; font-size: 0.85rem;
+    color: #5a4040; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 2.5rem;
+  }
+  a {
+    font-family: 'Share Tech Mono', monospace; font-size: 0.72rem;
+    letter-spacing: 0.12em; text-transform: uppercase; color: #5a7a9a;
+    border: 1px solid #1a2f4a; padding: 0.7rem 1.5rem; text-decoration: none;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  a:hover { color: #c8dff0; border-color: #5a7a9a; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="tag">// Server 02</p>
+  <h1>HumanitZ</h1>
+  <p>Server under construction — check back soon</p>
+  <a href="index.html">← Back to Nocturnia</a>
+</div>
+</body>
+</html>
