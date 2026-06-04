@@ -16,7 +16,7 @@ DayZ loads a custom HTML file as the splash/loading screen displayed to players 
 **You need:**
 - DayZ standalone server (any host)
 - FTP / file manager / SSH access to server root
-- The file: `nocturnia_loading.html` (download it from this folder)
+- The file: `loading_screen.html` (download it from this folder)
 
 **You do NOT need:**
 - A custom mod or PBO
@@ -29,13 +29,13 @@ DayZ loads a custom HTML file as the splash/loading screen displayed to players 
 
 ### Step 01 — Upload the HTML file to your server
 
-Place `nocturnia_loading.html` in your server's **root directory** — the same folder that contains `serverDZ.cfg` and your `DayZServer_x64.exe`.
+Place `loading_screen.html` in your server's **root directory** — the same folder that contains `serverDZ.cfg` and your `DayZServer_x64.exe`.
 
 ```
 dayz_server_root/
 ├── DayZServer_x64.exe
 ├── serverDZ.cfg
-└── nocturnia_loading.html   ← goes here
+└── loading_screen.html   ← goes here
 ```
 
 > **Tip:** If your host uses a file manager panel (e.g. Nitrado, GTXGaming, G-Portal), navigate to the root of your server profile and upload there. If you have SSH/FTP, drop it directly alongside the server binary.
@@ -48,10 +48,10 @@ Open your `serverDZ.cfg` file and add or update the `loadingScreen` line. The va
 
 ```cfg
 // serverDZ.cfg — add or update this line:
-loadingScreen = "nocturnia_loading.html";
+loadingScreen = "loading_screen.html";
 ```
 
-> ⚠️ **Watch out:** The filename is case-sensitive on Linux servers. Make sure it matches exactly: `nocturnia_loading.html` — all lowercase.
+> ⚠️ **Watch out:** The filename is case-sensitive on Linux servers. Make sure it matches exactly: `loading_screen.html` — all lowercase.
 
 ---
 
@@ -81,7 +81,7 @@ passwordAdmin   = "yourpassword";
 enableWhitelist = 0;
 
 // ── Custom loading screen ──
-loadingScreen   = "nocturnia_loading.html";
+loadingScreen   = "loading_screen.html";
 
 motd[]          = {"Welcome to NOCTURNIA", "discord.gg/YJ8G2sGskk"};
 motdInterval    = 60;
@@ -107,7 +107,7 @@ The screen loads Google Fonts over the internet. Some server hosts or players' n
 
 ```
 dayz_server_root/
-├── nocturnia_loading.html
+├── loading_screen.html
 └── fonts/
     └── Orbitron-Bold.woff2
 ```
