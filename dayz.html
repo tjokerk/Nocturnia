@@ -840,6 +840,45 @@
     display: inline-block;
   }
 
+  .donation-card.tier-insurance {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: rgba(0,255,136,0.04);
+    border: 1px solid rgba(0,255,136,0.2);
+    gap: 0.75rem;
+  }
+
+  .donation-card.tier-insurance::before {
+    background: linear-gradient(90deg, #00ff88, #00cc66);
+  }
+
+  .insurance-icon {
+    font-size: 2rem;
+    color: #00ff88;
+    text-shadow: 0 0 20px rgba(0,255,136,0.6);
+  }
+
+  .insurance-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #00ff88;
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 15px rgba(0,255,136,0.4);
+  }
+
+  .insurance-desc {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.72rem;
+    color: rgba(0,255,136,0.7);
+    letter-spacing: 0.05em;
+    line-height: 1.6;
+    max-width: 220px;
+  }
+
   .donation-actions {
     display: flex;
     gap: 1rem;
@@ -1367,7 +1406,6 @@
           <li>LAZZY BURGER — cures all ailments</li>
           <li>Heavenly Case Base + Heavenly Bench</li>
         </ul>
-        <span class="donation-insurance">✦ UNLIMITED DEATH INSURANCE</span>
       </div>
 
       <!-- PURPED OUT -->
@@ -1383,7 +1421,6 @@
           <li>LAZZY BURGER — cures all ailments</li>
           <li>T3 Magloader</li>
         </ul>
-        <span class="donation-insurance">✦ UNLIMITED DEATH INSURANCE</span>
       </div>
 
       <!-- APVs -->
@@ -1415,7 +1452,6 @@
           <li>Waterproof with best insulation</li>
           <li>T5 resistances</li>
         </ul>
-        <span class="donation-insurance">✦ UNLIMITED DEATH INSURANCE</span>
       </div>
 
       <!-- ARMOR T7 -->
@@ -1426,7 +1462,6 @@
           <li>Armour with massive protections</li>
           <li>T7 resistances across the board</li>
         </ul>
-        <span class="donation-insurance">✦ UNLIMITED DEATH INSURANCE</span>
       </div>
 
       <!-- ARMOR NEW MAX -->
@@ -1437,7 +1472,13 @@
           <li>New max-tier armour</li>
           <li>Deflects all damage down to scratches only</li>
         </ul>
-        <span class="donation-insurance">✦ UNLIMITED DEATH INSURANCE</span>
+      </div>
+
+      <!-- UNLIMITED DEATH INSURANCE — all donors -->
+      <div class="donation-card tier-insurance">
+        <div class="insurance-icon">✦</div>
+        <div class="insurance-title">UNLIMITED DEATH INSURANCE</div>
+        <p class="insurance-desc">Included with every donation purchase. No matter how you die — you keep your gear.</p>
       </div>
 
     </div>
