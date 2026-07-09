@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOCTURNIA | Banov | The Alien War</title>
+<meta name="description" content="Nocturnia PVE | Banov | The Alien War. Hardcore PvE DayZ on the 256km² Banov map. AI Companions, underground complexes, sci-fi gear. Search NOCTURNIA in DZSA to join.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #060606;
+    --deep: #0e0e0e;
+    --panel: #161616;
+    --border: #2e2e2e;
+    --accent: #ff2b2b;
+    --accent2: #8a8f99;
+    --warn: #ff6b2f;
+    --glow: rgba(255,43,43,0.15);
+    --glow2: rgba(138,143,153,0.12);
+    --text: #d5d5d5;
+    --muted: #8a8a8a;
+    --white: #f2f2f2;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--void);
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 400;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ── SCANLINE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.08) 2px,
+      rgba(0,0,0,0.08) 4px
+    );
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2.5rem;
+    height: 64px;
+    background: rgba(3,5,10,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 1.25rem;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.15em;
+    text-shadow: 0 0 20px rgba(255,43,43,0.6);
+  }
+
+  .nav-logo span { color: var(--accent2); }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-cta {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.4rem 1rem;
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .nav-cta:hover { background: var(--accent); color: var(--void); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 6rem 2rem 4rem;
+    text-align: center;
+  }
+
+  /* Placeholder hero bg — replaced when user uploads image */
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(138,143,153,0.18) 0%, transparent 65%),
+      radial-gradient(ellipse 60% 40% at 20% 80%, rgba(255,43,43,0.1) 0%, transparent 60%),
+      linear-gradient(180deg, #03050a 0%, #070d1f 40%, #0a0615 100%);
+    z-index: 0;
+  }
+
+  /* If user supplies a hero image, it goes here */
+  .hero-img-layer {
+    position: absolute;
+    inset: 0;
+    background-image: url('server_extras/banov-images/notext_banov.jpg');
+    background-size: cover;
+    background-position: center top;
+    opacity: 0.25;
+    z-index: 0;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,43,43,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,43,43,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 1;
+    mask-image: linear-gradient(180deg, transparent 0%, black 30%, black 70%, transparent 100%);
+  }
+
+  .hero-content { position: relative; z-index: 2; max-width: 900px; }
+
+  .hero-tag {
+    display: inline-block;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(255,43,43,0.3);
+    padding: 0.3rem 0.9rem;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-title {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: clamp(3rem, 8vw, 7rem);
+    line-height: 0.95;
+    color: var(--white);
+    letter-spacing: -0.01em;
+    margin-bottom: 0.5rem;
+    animation: fadeUp 0.8s 0.15s ease both;
+    text-shadow:
+      0 0 60px rgba(255,43,43,0.3),
+      0 0 120px rgba(138,143,153,0.2);
+  }
+
+  .hero-title .accent { color: var(--accent); }
+  .hero-title .accent2 { color: var(--accent2); }
+
+  .hero-sub {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(0.8rem, 2vw, 1.1rem);
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s 0.25s ease both;
+  }
+
+  .hero-desc {
+    font-size: 1.15rem;
+    color: var(--text);
+    max-width: 620px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.7;
+    font-weight: 300;
+    animation: fadeUp 0.8s 0.35s ease both;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.45s ease both;
+  }
+
+  .btn-primary {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--void);
+    background: var(--accent);
+    border: none;
+    padding: 0.85rem 2rem;
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 0 30px rgba(255,43,43,0.5);
+  }
+
+  .btn-secondary {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    background: transparent;
+    border: 1px solid var(--accent2);
+    padding: 0.85rem 2rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  }
+
+  .btn-secondary:hover {
+    background: rgba(138,143,153,0.15);
+    box-shadow: 0 0 30px rgba(138,143,153,0.4);
+  }
+
+  .hero-stats {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 0; right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    z-index: 2;
+    animation: fadeUp 0.8s 0.6s ease both;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--accent);
+    display: block;
+  }
+
+  .stat-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* ── STATUS BAR ── */
+  .status-bar {
+    background: var(--panel);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .status-bar-ticker {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 0.55rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    min-width: 0;
+  }
+
+  .status-bar-left {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 0.6rem 1.5rem;
+    flex-shrink: 0;
+    background: rgba(255,43,43,0.03);
+  }
+
+  .status-bar-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 0 1.25rem;
+    min-width: 0;
+  }
+
+  .status-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .status-online {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.72rem;
+    color: #00ff88;
+    letter-spacing: 0.1em;
+    flex-shrink: 0;
+  }
+
+  .status-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #00ff88;
+    animation: pulse-dot 2s ease infinite;
+  }
+
+  .status-ip {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    background: rgba(255,43,43,0.06);
+    border: 1px solid rgba(255,43,43,0.2);
+    padding: 0.2rem 0.7rem;
+    flex-shrink: 0;
+  }
+
+  .status-scroll {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    animation: marquee 30s linear infinite;
+    white-space: nowrap;
+    flex: 1;
+    min-width: 0;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ── SECTION BASE ── */
+  section { padding: 5rem 2rem; }
+
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  .section-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    color: var(--accent);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+
+  .section-lead {
+    font-size: 1.05rem;
+    color: var(--muted);
+    font-weight: 300;
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+
+  /* ── HOW TO JOIN ── */
+  .join-section { background: var(--deep); }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 3rem;
+  }
+
+  .step {
+    background: var(--panel);
+    padding: 2rem 1.75rem;
+    position: relative;
+    transition: background 0.2s;
+  }
+
+  .step:hover { background: #0e1d30; }
+
+  .step-num {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3rem;
+    font-weight: 900;
+    color: rgba(255,43,43,0.08);
+    line-height: 1;
+    position: absolute;
+    top: 1rem; right: 1.25rem;
+  }
+
+  .step-icon {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .step h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.6rem;
+  }
+
+  .step p {
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .step code {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--accent);
+    background: rgba(255,43,43,0.07);
+    border: 1px solid rgba(255,43,43,0.2);
+    padding: 0.15rem 0.4rem;
+    display: inline-block;
+    margin-top: 0.5rem;
+    word-break: break-all;
+  }
+
+  .step a {
+    color: var(--accent);
+    text-decoration: none;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid rgba(255,43,43,0.3);
+  }
+
+  /* ── FEATURES ── */
+  .features-section { background: var(--void); }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .feature-card {
+    background: var(--panel);
+    padding: 1.75rem 1.75rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.2s;
+  }
+
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .feature-card:hover { background: #0d1b2e; }
+  .feature-card:hover::before { opacity: 1; }
+
+  .feature-icon {
+    font-size: 1.4rem;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .feature-card h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+  }
+
+  .feature-card p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  /* ── MOD LIST ── */
+  .mods-section { background: var(--deep); }
+
+  .mod-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .mod-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 0.35rem 0.8rem;
+    transition: color 0.2s, border-color 0.2s;
+    cursor: default;
+  }
+
+  .mod-tag:hover {
+    color: var(--accent);
+    border-color: rgba(255,43,43,0.4);
+  }
+
+  .mod-tag.highlight {
+    color: var(--accent2);
+    border-color: rgba(138,143,153,0.4);
+    cursor: default;
+  }
+
+  .mod-tag.highlight:hover {
+    color: var(--accent2);
+    border-color: rgba(138,143,153,0.4);
+  }
+
+  /* ── SERVER CARD ── */
+  .server-section { background: var(--void); }
+
+  .server-card {
+    border: 1px solid var(--border);
+    background: var(--panel);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .server-card::after {
+    content: '';
+    position: absolute;
+    top: -1px; left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
+  }
+
+  .server-card-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  .server-info {
+    padding: 2.5rem;
+    border-right: 1px solid var(--border);
+  }
+
+  .server-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.05em;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+  }
+
+  .server-detail {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+
+  .detail-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    min-width: 80px;
+    flex-shrink: 0;
+    padding-top: 0.1rem;
+  }
+
+  .detail-value {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--accent);
+    word-break: break-all;
+  }
+
+  .server-actions {
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .copy-btn {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: transparent;
+    border: 1px solid var(--border);
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .copy-btn:hover {
+    color: var(--accent);
+    border-color: rgba(255,43,43,0.4);
+  }
+
+  .copy-btn.copied { color: #00ff88; border-color: rgba(0,255,136,0.4); }
+
+  /* ── GALLERY ── */
+  .gallery-section { background: var(--deep); }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 2.5rem;
+  }
+
+  .gallery-slot {
+    aspect-ratio: 16/9;
+    background: var(--panel);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .gallery-slot img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #000;
+    display: block;
+  }
+
+  .gallery-placeholder {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .gallery-placeholder::before {
+    content: '[ IMG ]';
+    display: block;
+    font-size: 2rem;
+    color: var(--border);
+    margin-bottom: 0.5rem;
+  }
+
+
+
+  /* ── DONATION ── */
+  .donation-section { background: var(--deep); }
+
+  .donation-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+
+  .donation-paypal {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 0.7rem 1.5rem;
+    text-decoration: none;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .donation-paypal:hover { color: var(--white); border-color: var(--muted); }
+
+  /* ── VIDEO ── */
+  .video-section { background: var(--void); }
+
+  .video-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    margin-top: 2.5rem;
+  }
+
+  .video-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--border);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .video-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: var(--void);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 50%, rgba(138,143,153,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 30% 50%, rgba(255,43,43,0.07) 0%, transparent 70%);
+    z-index: 0;
+  }
+
+  .cta-section .container { position: relative; z-index: 1; }
+
+  .cta-title {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    color: var(--white);
+    margin-bottom: 1rem;
+    text-shadow: 0 0 40px rgba(255,43,43,0.25);
+  }
+
+  .cta-sub {
+    font-size: 1.05rem;
+    color: var(--muted);
+    font-weight: 300;
+    max-width: 500px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.7;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--deep);
+    border-top: 1px solid var(--border);
+    padding: 3rem 2.5rem 2rem;
+  }
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 3rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-brand-name {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 1.3rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-shadow: 0 0 20px rgba(255,43,43,0.4);
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  .footer-brand-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+    font-weight: 300;
+    max-width: 320px;
+  }
+
+  .footer-col h4 {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .footer-col ul { list-style: none; }
+
+  .footer-col ul li { margin-bottom: 0.5rem; }
+
+  .footer-col ul li a {
+    font-size: 0.88rem;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+    font-weight: 300;
+  }
+
+  .footer-col ul li a:hover { color: var(--accent); }
+
+  .footer-bottom {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-copy {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    line-height: 1.8;
+  }
+
+  .footer-disclaimer {
+    font-size: 0.7rem;
+    color: #2a3d52;
+    line-height: 1.6;
+    max-width: 550px;
+    text-align: right;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 3rem 0;
+    color: var(--border);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+  }
+
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(0,255,136,0.4); }
+    50%       { box-shadow: 0 0 0 6px rgba(0,255,136,0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 1.25rem; }
+    .nav-links { display: none; }
+    .hero { padding: 5rem 1.25rem 6rem; }
+    .hero-stats { gap: 1.5rem; flex-wrap: wrap; padding: 0 1rem; }
+    .server-card-inner { grid-template-columns: 1fr; }
+    .server-info { border-right: none; border-bottom: 1px solid var(--border); }
+    .gallery-grid { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .footer-disclaimer { text-align: left; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+    section { padding: 3.5rem 1.25rem; }
+    .status-bar { padding: 0.75rem 1.25rem; gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#"><span>#1</span> NOCTURNIA</a>
+  <ul class="nav-links">
+    <li><a href="#join">How to Join</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#mods">Mods</a></li>
+    <li><a href="#server">Server Info</a></li>
+  </ul>
+  <a class="nav-cta" href="https://discord.gg/YJ8G2sGskk" target="_blank" rel="noopener">Discord</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <!-- hero-img-layer background pending: Troy to supply Banov reference image -->
+  <div class="hero-img-layer"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Hardcore PvE · Banov · The Alien War</div>
+    <h1 class="hero-title">
+      <span class="accent">#1 NOCTURNIA</span>
+    </h1>
+    <p class="hero-sub">Banov · AI Companion · Sci-Fi Hardcore PvE</p>
+    <p class="hero-desc">The first DayZ map inspired by the Slovak Banov District. 256km² of dense forests, overgrown meadows, and swamp, hiding 4 underground complexes full of alien secrets. Survive the infected, the weather, and the war. Go it alone — or squad up.</p>
+    <div class="hero-buttons">
+      <a class="btn-primary" href="#join">How to Join</a>
+      <a class="btn-secondary" href="https://discord.gg/YJ8G2sGskk" target="_blank" rel="noopener">Join Discord</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-num">256km²</span>
+      <span class="stat-label">Map Size</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">PvE</span>
+      <span class="stat-label">Hardcore</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">4</span>
+      <span class="stat-label">Underground Complexes</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">0</span>
+      <span class="stat-label">Pay-to-Win</span>
+    </div>
+  </div>
+</section>
+
+<!-- STATUS BAR -->
+<div class="status-bar">
+  <div class="status-bar-ticker">
+    <div class="status-scroll">
+      NOCTURNIA · HARDCORE PVE · BANOV · THE ALIEN WAR · AI COMPANIONS · SCI-FI GEAR · UNDERGROUND COMPLEXES · JOIN VIA DZSA LAUNCHER · SEARCH: NOCTURNIA &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      NOCTURNIA · HARDCORE PVE · BANOV · THE ALIEN WAR · AI COMPANIONS · SCI-FI GEAR · UNDERGROUND COMPLEXES · JOIN VIA DZSA LAUNCHER · SEARCH: NOCTURNIA &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </div>
+  </div>
+  <div class="status-bar-left">
+    <span class="status-label">SYS STATUS</span>
+    <div class="status-online"><div class="status-dot"></div> SERVER ONLINE</div>
+    <span class="status-ip">66.148.51.243:2413</span>
+  </div>
+</div>
+
+<!-- HOW TO JOIN -->
+<section class="join-section" id="join">
+  <div class="container">
+    <span class="section-tag">// GET IN-GAME</span>
+    <h2 class="section-title">Start Your Survival</h2>
+    <p class="section-lead">From fresh spawn to geared survivor. No whitelist. No gatekeeping. Just search and connect.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-icon">🎮</div>
+        <h3>Get DayZ</h3>
+        <p>Purchase DayZ on Steam. Banov is a custom community map — it downloads automatically through the DZSA Launcher on first connect.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-icon">⚙️</div>
+        <h3>Download DZSA Launcher</h3>
+        <p>Use the DZSA Launcher for automatic mod management. It handles all required mods on first connect.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-icon">🔍</div>
+        <h3>Search NOCTURNIA</h3>
+        <p>Filter by <code>NOCTURNIA</code> in the launcher or official server browser. Select the server below and hit connect.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-icon">💬</div>
+        <h3>Join Discord</h3>
+        <p>Get community help, report bugs, find squadmates, and stay updated on events and wipes.</p>
+        <a href="https://discord.gg/YJ8G2sGskk" target="_blank" rel="noopener">discord.gg/YJ8G2sGskk →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-section" id="features">
+  <div class="container">
+    <span class="section-tag">// WHAT AWAITS YOU</span>
+    <h2 class="section-title">Built Different</h2>
+    <p class="section-lead">Every system on NOCTURNIA is tuned to make survival feel brutal, rewarding, and genuinely sci-fi.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="feature-icon">🗺️</span>
+        <h3>A Massive World</h3>
+        <p>256km² inspired by the real Banov District of Slovakia. 1 city, 35 villages, 2 water reservoirs, and 3 airports to explore.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🛸</span>
+        <h3>The Alien War</h3>
+        <p>Mysterious dwellings, hidden locations, and paranormal phenomena scattered across the map. Uncover the truth if you dare.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🕳️</span>
+        <h3>Underground Complexes</h3>
+        <p>4 large underground complexes, each rich with storylines, danger, and rewards that are crucial to progressing the map's narrative.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🤖</span>
+        <h3>AI Companion</h3>
+        <p>Equip a companion armband to summon an AI buddy that fights alongside you. Solo players finally have backup — if they can keep it alive.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">⚔️</span>
+        <h3>Deep Gear Progression</h3>
+        <p>Layered gear tiers from vanilla loadouts to black-market sci-fi weapon packs. Progression that actually feels earned.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🌩️</span>
+        <h3>Unforgiving Survival</h3>
+        <p>Dense forests, swamps, and wild rivers with unpredictable weather. Sunny days can shift to storms without warning.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🏠</span>
+        <h3>Build & Hide</h3>
+        <p>Find safe locations to build your base or hide from the infected. The land rewards those who plan wisely.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">💎</span>
+        <h3>No Pay-to-Win</h3>
+        <p>Donor gear options exist — but every single item is obtainable through gameplay. Money helps, grind does the same.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODS -->
+<section class="mods-section" id="mods">
+  <div class="container">
+    <span class="section-tag">// MODLIST</span>
+    <h2 class="section-title">Active Mods</h2>
+    <p class="section-lead">Full mod list coming soon — check Discord for the current build while this section is finalized.</p>
+  </div>
+</section>
+
+<!-- SERVER INFO -->
+<section class="server-section" id="server">
+  <div class="container">
+    <span class="section-tag">// CONNECTION DETAILS</span>
+    <h2 class="section-title">Server Info</h2>
+    <p class="section-lead">Everything you need to connect directly or through the DZSA Launcher.</p>
+    <div class="server-card">
+      <div class="server-card-inner">
+        <div class="server-info">
+          <p class="server-name">Nocturnia PVE | Banov | The Alien War</p>
+          <div class="server-detail">
+            <span class="detail-label">MAP</span>
+            <span class="detail-value">Banov</span>
+          </div>
+          <div class="server-detail">
+            <span class="detail-label">TYPE</span>
+            <span class="detail-value">Hardcore PvE — No Raiding</span>
+          </div>
+          <div class="server-detail">
+            <span class="detail-label">IP</span>
+            <span class="detail-value">66.148.51.243:2413</span>
+          </div>
+          <div class="server-detail">
+            <span class="detail-label">SEARCH</span>
+            <span class="detail-value">NOCTURNIA</span>
+          </div>
+          <div class="server-detail">
+            <span class="detail-label">DISCORD</span>
+            <span class="detail-value"><a href="https://discord.gg/YJ8G2sGskk" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">discord.gg/YJ8G2sGskk</a></span>
+          </div>
+        </div>
+        <div class="server-actions">
+          <button class="copy-btn" onclick="copyText('66.148.51.243:2413', this)">
+            📋 Copy Server IP
+          </button>
+          <button class="copy-btn" onclick="copyText('NOCTURNIA', this)">
+            📋 Copy Search Term
+          </button>
+          <button class="copy-btn" onclick="copyText('https://discord.gg/YJ8G2sGskk', this)">
+            📋 Copy Discord Link
+          </button>
+          <a class="btn-primary" href="https://discord.gg/YJ8G2sGskk" target="_blank" rel="noopener" style="text-align:center;display:block;margin-top:0.5rem;">
+            Join Discord →
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-section" id="gallery">
+  <div class="container">
+    <span class="section-tag">// FROM THE ALIEN WAR</span>
+    <h2 class="section-title">Screenshots</h2>
+    <div class="gallery-coming-soon" style="text-align:center; padding: 3rem 1rem; border: 1px dashed var(--border); color: var(--muted); font-family:'Share Tech Mono', monospace; letter-spacing: 0.15em; text-transform: uppercase;">
+      Coming Soon
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO: section omitted for now, no footage provided yet. Re-add when ready. -->
+
+<!-- DONATION -->
+<section class="donation-section" id="donate">
+  <div class="container">
+    <span class="section-tag">// SUPPORT THE SERVER</span>
+    <h2 class="section-title">Support NOCTURNIA</h2>
+    <p class="section-lead">Keeping the server running takes time and resources. If you'd like to help keep NOCTURNIA alive, any support is appreciated. Visit our Discord to learn more.</p>
+    <div class="donation-actions">
+      <a class="btn-primary" href="https://discord.gg/YJ8G2sGskk" target="_blank" rel="noopener">Join Discord ↗</a>
+      <a class="donation-paypal" href="https://paypal.me/NocturniaHardcore?country.x=CA&locale.x=en_US" target="_blank" rel="noopener">Donate via PayPal ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-title">The Alien War Won't Wait</h2>
+    <p class="cta-sub">Banov is vast. The storms are relentless. What's buried underground is worse. That's the point. Come find out what you're made of.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <a class="btn-primary" href="#join">Get Started</a>
+      <a class="btn-secondary" href="https://discord.gg/YJ8G2sGskk" target="_blank" rel="noopener">Join the Community</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <span class="footer-brand-name">NOCTURNIA</span>
+      <p class="footer-brand-desc">Nocturnia PVE | Banov | The Alien War. Hardcore Sci-Fi PvE DayZ on the 256km² Banov map. AI Companions, underground complexes, and zero pay-to-win.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="#join">How to Join</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#mods">Mod List</a></li>
+        <li><a href="#server">Server Info</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Community</h4>
+      <ul>
+        <li><a href="https://discord.gg/YJ8G2sGskk" target="_blank" rel="noopener">Discord</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">
+      © 2026 NOCTURNIA. All rights reserved.<br>
+      Server IP: 66.148.51.243:2413
+    </div>
+    <p class="footer-disclaimer">
+      This website and NOCTURNIA are unrelated to, not sponsored by, and not endorsed by Bohemia Interactive a.s. DayZ® and Bohemia Interactive® are trademarks of Bohemia Interactive a.s.
+    </p>
+  </div>
+</footer>
+
+<script>
+  function copyText(text, btn) {
+    navigator.clipboard.writeText(text).then(() => {
+      const orig = btn.innerHTML;
+      btn.innerHTML = '✓ Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.innerHTML = orig;
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+
+  // Gallery rotation script intentionally omitted — no Banov screenshots yet.
+  // Reuses the same pattern as namalsk.html once images are supplied:
+  // point `base` at the screenshot folder and list filenames in `imgs`.
+</script>
+
+</body>
+</html>
