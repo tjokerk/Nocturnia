@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NOCTURNIA | Choose Your Server</title>
+<title>NOCTURNIA</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
@@ -72,26 +72,6 @@
     text-align: center;
     width: 100%;
     padding: 0 2rem;
-  }
-
-  .tagline {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: clamp(0.6rem, 1.5vw, 0.8rem);
-    letter-spacing: 0.3em;
-    color: rgba(255,255,255,0.5);
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-    animation: fadeUp 0.8s 0.2s both;
-  }
-
-  .choose {
-    font-size: clamp(0.75rem, 2vw, 1rem);
-    font-weight: 700;
-    letter-spacing: 0.25em;
-    color: rgba(255,255,255,0.35);
-    text-transform: uppercase;
-    margin-bottom: 2rem;
-    animation: fadeUp 0.8s 0.4s both;
   }
 
   .buttons {
@@ -168,17 +148,6 @@
   .btn-humanitz:hover .btn-bg { background: rgba(200, 30, 30, 0.25); box-shadow: 0 0 40px rgba(220,50,50,0.3) inset; }
   .btn-humanitz:hover { box-shadow: 0 0 30px rgba(220,50,50,0.4); }
 
-  /* Deer Isle button — toxic bioluminescent green */
-  .btn-deerisle .btn-bg {
-    background: rgba(20, 100, 45, 0.12);
-    border: 1px solid rgba(45, 255, 126, 0.5);
-    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
-  }
-  .btn-deerisle .btn-label { color: #2dff7e; text-shadow: 0 0 20px rgba(45,255,126,0.7); }
-  .btn-deerisle .btn-sub { color: #2dff7e; }
-  .btn-deerisle:hover .btn-bg { background: rgba(20, 100, 45, 0.25); box-shadow: 0 0 40px rgba(45,255,126,0.3) inset; }
-  .btn-deerisle:hover { box-shadow: 0 0 30px rgba(45,255,126,0.4); }
-
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(18px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -190,23 +159,14 @@
 <div class="splash">
   <div class="bg"></div>
   <div class="content">
-    <p class="tagline">Nocturnia Hardcore Gaming</p>
-    <p class="choose">Choose Your Server</p>
     <div class="buttons">
       <a href="dayz.html" class="server-btn btn-dayz">
         <div class="btn-bg"></div>
         <span class="btn-label">DayZ</span>
-        <span class="btn-sub">Namalsk · Hardcore PvE</span>
       </a>
-      <a href="deerisle.html" class="server-btn btn-deerisle">
+      <a href="other-games.html" class="server-btn btn-humanitz">
         <div class="btn-bg"></div>
-        <span class="btn-label">Deer Isle</span>
-        <span class="btn-sub">Deer Isle · Hardcore PvE</span>
-      </a>
-      <a href="humanitz.html" class="server-btn btn-humanitz">
-        <div class="btn-bg"></div>
-        <span class="btn-label">HumanitZ</span>
-        <span class="btn-sub">PvE · Zombie Survival</span>
+        <span class="btn-label">Other Games</span>
       </a>
     </div>
   </div>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOCTURNIA | Deer Isle | Under Construction</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    background: #000;
+    font-family: 'Orbitron', sans-serif;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.07) 2px,
+      rgba(0,0,0,0.07) 4px
+    );
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  .wrap {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .back-link {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    z-index: 3;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 0.5rem 1rem;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .back-link:hover { color: #fff; border-color: rgba(255,255,255,0.6); }
+
+  .server-name {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: clamp(0.65rem, 1.5vw, 0.8rem);
+    letter-spacing: 0.35em;
+    color: #2dff7e;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    opacity: 0.8;
+  }
+
+  .status {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: clamp(1.8rem, 6vw, 3.2rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 0 0 25px rgba(45,255,126,0.6);
+    margin-bottom: 0.75rem;
+  }
+
+  .note {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: clamp(0.65rem, 1.3vw, 0.8rem);
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.45);
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<a href="dayz.html" class="back-link">&larr; Back</a>
+
+<div class="wrap">
+  <p class="server-name">Deer Isle</p>
+  <p class="status">Under Construction</p>
+  <p class="note">Check back soon</p>
+</div>
+
+</body>
+</html>

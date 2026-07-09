@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NOCTURNIA | DayZ Servers</title>
+<title>NOCTURNIA | Other Games</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
@@ -24,7 +24,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 4vh 0;
   }
 
   .bg {
@@ -93,9 +92,9 @@
 
   .buttons {
     display: flex;
-    flex-direction: column;
-    gap: 1.1rem;
-    align-items: center;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
     animation: fadeUp 0.8s 0.2s both;
   }
 
@@ -105,7 +104,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: clamp(220px, 30vw, 340px);
+    width: clamp(160px, 22vw, 240px);
     height: clamp(70px, 10vw, 90px);
     text-decoration: none;
     overflow: hidden;
@@ -143,42 +142,29 @@
     opacity: 0.7;
   }
 
-  /* Banov button — gunmetal black / diamond-plate red, ref: Banov_Gun.png */
-  .btn-banov .btn-bg {
-    background:
-      repeating-linear-gradient(135deg, transparent 0 10px, rgba(220,30,30,0.22) 10px 11px, transparent 11px 22px),
-      repeating-linear-gradient(45deg, transparent 0 10px, rgba(220,30,30,0.22) 10px 11px, transparent 11px 22px),
-      linear-gradient(160deg, rgba(35,35,35,0.7) 0%, rgba(10,10,10,0.75) 100%);
-    border: 1px solid rgba(220, 40, 40, 0.65);
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
-    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  /* HumanitZ button — blood red */
+  .btn-humanitz .btn-bg {
+    background: rgba(200, 30, 30, 0.12);
+    border: 1px solid rgba(220, 50, 50, 0.5);
+    clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
   }
-  .btn-banov .btn-label { color: #ff2b2b; text-shadow: 0 0 20px rgba(255,40,40,0.8), 0 0 2px rgba(255,255,255,0.4); }
-  .btn-banov .btn-sub { color: #d8d8d8; }
-  .btn-banov:hover .btn-bg { box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08), 0 0 40px rgba(220,35,35,0.35) inset; }
-  .btn-banov:hover { box-shadow: 0 0 30px rgba(220,35,35,0.45); }
+  .btn-humanitz .btn-label { color: #ff4444; text-shadow: 0 0 20px rgba(255,50,50,0.7); }
+  .btn-humanitz .btn-sub { color: #ff4444; }
+  .btn-humanitz:hover .btn-bg { background: rgba(200, 30, 30, 0.25); box-shadow: 0 0 40px rgba(220,50,50,0.3) inset; }
+  .btn-humanitz:hover { box-shadow: 0 0 30px rgba(220,50,50,0.4); }
 
-  /* Deer Isle button — toxic bioluminescent green */
-  .btn-deerisle .btn-bg {
-    background: rgba(20, 100, 45, 0.12);
-    border: 1px solid rgba(45, 255, 126, 0.5);
+  /* Coming Soon button — inert / disabled */
+  .btn-soon {
+    cursor: not-allowed;
+  }
+  .btn-soon .btn-bg {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
   }
-  .btn-deerisle .btn-label { color: #2dff7e; text-shadow: 0 0 20px rgba(45,255,126,0.7); }
-  .btn-deerisle .btn-sub { color: #2dff7e; }
-  .btn-deerisle:hover .btn-bg { background: rgba(20, 100, 45, 0.25); box-shadow: 0 0 40px rgba(45,255,126,0.3) inset; }
-  .btn-deerisle:hover { box-shadow: 0 0 30px rgba(45,255,126,0.4); }
-
-  /* Namalsk button — cold cyan */
-  .btn-namalsk .btn-bg {
-    background: rgba(0, 180, 220, 0.12);
-    border: 1px solid rgba(0, 200, 255, 0.5);
-    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
-  }
-  .btn-namalsk .btn-label { color: #00c8ff; text-shadow: 0 0 20px rgba(0,200,255,0.7); }
-  .btn-namalsk .btn-sub { color: #00c8ff; }
-  .btn-namalsk:hover .btn-bg { background: rgba(0, 180, 220, 0.25); box-shadow: 0 0 40px rgba(0,200,255,0.3) inset; }
-  .btn-namalsk:hover { box-shadow: 0 0 30px rgba(0,200,255,0.4); }
+  .btn-soon .btn-label { color: rgba(255,255,255,0.35); }
+  .btn-soon .btn-sub { color: rgba(255,255,255,0.25); }
+  .btn-soon:hover { transform: none; }
 
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(18px); }
@@ -194,21 +180,15 @@
   <div class="bg"></div>
   <div class="content">
     <div class="buttons">
-      <a href="banov-construction.html" class="server-btn btn-banov">
+      <a href="humanitz.html" class="server-btn btn-humanitz">
         <div class="btn-bg"></div>
-        <span class="btn-label">Banov</span>
-        <span class="btn-sub">Sci-Fi PvE &middot; Progression</span>
+        <span class="btn-label">HumanitZ</span>
+        <span class="btn-sub">PvE &middot; Zombie Survival</span>
       </a>
-      <a href="deerisle-construction.html" class="server-btn btn-deerisle">
+      <span class="server-btn btn-soon" aria-disabled="true">
         <div class="btn-bg"></div>
-        <span class="btn-label">Deer Isle</span>
-        <span class="btn-sub">Deer Isle &middot; Hardcore PvE</span>
-      </a>
-      <a href="namalsk-construction.html" class="server-btn btn-namalsk">
-        <div class="btn-bg"></div>
-        <span class="btn-label">Namalsk</span>
-        <span class="btn-sub">Namalsk &middot; Hardcore PvE</span>
-      </a>
+        <span class="btn-label">Coming Soon</span>
+      </span>
     </div>
   </div>
 </div>
