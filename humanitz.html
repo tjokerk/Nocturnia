@@ -473,5 +473,110 @@
   }
 </script>
 
+<!-- SURVIVOR PROTOCOL BADGE -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+.dayz-badge-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  background: rgba(10, 11, 12, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 2px solid #ff2a2a;
+  box-shadow: 
+    0 6px 18px rgba(0, 0, 0, 0.85),
+    inset 0 0 10px rgba(0, 0, 0, 0.6);
+  font-family: 'Share Tech Mono', monospace;
+  overflow: hidden;
+  width: 150px;
+  margin: 24px auto;
+  border-radius: 4px;
+}
+.hud-scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  ), linear-gradient(
+    90deg, 
+    rgba(255, 0, 0, 0.03), 
+    rgba(0, 255, 0, 0.01), 
+    rgba(0, 0, 255, 0.03)
+  );
+  background-size: 100% 4px, 6px 100%;
+  z-index: 1;
+}
+.tactical-visor {
+  position: relative;
+  width: 70px;
+  height: 3px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 1px;
+  margin-bottom: 6px;
+  overflow: hidden;
+  z-index: 2;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.laser-scanner {
+  position: absolute;
+  top: 0;
+  width: 18px;
+  height: 100%;
+  background: linear-gradient(to right, transparent, #ff0000, transparent);
+  box-shadow: 
+    0 0 6px #ff0000,
+    0 0 12px rgba(255, 0, 0, 0.7);
+  animation: cylon-scan 0.9s infinite ease-in-out alternate;
+}
+.badge-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+.hud-label {
+  font-size: 6px;
+  color: #ff2a2a;
+  letter-spacing: 0.12em;
+  opacity: 0.85;
+}
+.designed-by {
+  font-size: 6.5px;
+  color: #a0a5ad;
+  letter-spacing: 0.1em;
+}
+.creator-name {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  color: #ffffff;
+  text-shadow: 
+    0 0 8px rgba(255, 255, 255, 0.1),
+    1.5px 1.5px 0px rgba(0, 0, 0, 0.9);
+}
+@keyframes cylon-scan {
+  0% { left: -25%; }
+  100% { left: 100%; }
+}
+</style>
+<div class="dayz-badge-container">
+  <div class="hud-scanlines"></div>
+  <div class="tactical-visor">
+    <div class="laser-scanner"></div>
+  </div>
+  <div class="badge-content">
+    <span class="hud-label">SURVIVOR PROTOCOL /</span>
+    <span class="designed-by">DESIGNED & BUILT BY</span>
+    <span class="creator-name">TJOKERK</span>
+  </div>
+</div>
+
 </body>
 </html>

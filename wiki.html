@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOCTURNIA | Banov | TerjeMedicine Field Wiki</title>
+<meta name="description" content="Nocturnia Banov medical reference for the TerjeMedicine mod: wounds, diseases, symptoms, and every treatment item, with in-game classnames.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #060606;
+    --deep: #0e0e0e;
+    --panel: #161616;
+    --border: #2e2e2e;
+    --accent: #ff2b2b;
+    --accent2: #8a8f99;
+    --warn: #ff6b2f;
+    --text: #d5d5d5;
+    --muted: #8a8a8a;
+    --white: #f2f2f2;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--void);
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 400;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px);
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2.5rem; height: 64px;
+    background: rgba(3,5,10,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 1.25rem;
+    color: var(--accent); text-decoration: none; letter-spacing: 0.15em;
+    text-shadow: 0 0 20px rgba(255,43,43,0.6);
+  }
+  .nav-logo span { color: var(--accent2); }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-family: 'Share Tech Mono', monospace; font-size: 0.78rem; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--text); text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-cta {
+    font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--void); background: var(--accent);
+    padding: 0.55rem 1.1rem; text-decoration: none; border: 1px solid var(--accent);
+    transition: background 0.2s, color 0.2s;
+  }
+  .nav-cta:hover { background: transparent; color: var(--accent); }
+
+  /* ── PAGE HEADER ── */
+  .page-header {
+    padding: 8.5rem 2rem 3.5rem; background: var(--deep);
+    border-bottom: 1px solid var(--border); text-align: center;
+  }
+  .page-tag {
+    font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 0.3em;
+    color: var(--accent); text-transform: uppercase; display: block; margin-bottom: 0.85rem;
+  }
+  .page-title {
+    font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--white); letter-spacing: 0.02em;
+  }
+  .page-lead {
+    max-width: 680px; margin: 1rem auto 0; font-size: 1rem; color: var(--muted);
+    font-weight: 300; line-height: 1.7;
+  }
+  .disclaimer-bar {
+    max-width: 820px; margin: 1.75rem auto 0; padding: 0.85rem 1.25rem;
+    border: 1px solid rgba(255,107,47,0.35); background: rgba(255,107,47,0.06);
+    font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; color: var(--warn);
+    letter-spacing: 0.02em; line-height: 1.6; text-align: left;
+  }
+
+  /* ── SECTION BASE ── */
+  section { padding: 4.5rem 2rem; }
+  .container { max-width: 1150px; margin: 0 auto; }
+
+  .section-tag {
+    font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em;
+    color: var(--accent); text-transform: uppercase; display: block; margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+    color: var(--white); line-height: 1.15; margin-bottom: 1rem;
+  }
+  .section-lead {
+    font-size: 1rem; color: var(--muted); font-weight: 300; max-width: 700px;
+    line-height: 1.7; margin-bottom: 2.5rem;
+  }
+  .alt-bg { background: var(--deep); }
+
+  /* ── QUICK NAV CHIPS ── */
+  .chip-row { display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; margin-top: 1.75rem; }
+  .chip {
+    font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 0.05em;
+    color: var(--text); border: 1px solid var(--border); padding: 0.45rem 0.85rem;
+    text-decoration: none; transition: border-color 0.2s, color 0.2s;
+  }
+  .chip:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ── AILMENT CARDS ── */
+  .ail-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1px; background: var(--border); border: 1px solid var(--border);
+    margin-bottom: 2.5rem;
+  }
+  .ail-card { background: var(--panel); padding: 1.75rem; position: relative; overflow: hidden; scroll-margin-top: 90px; }
+  .ail-card::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
+    background: linear-gradient(180deg, var(--accent), transparent); opacity: 0; transition: opacity 0.3s;
+  }
+  .ail-card:hover { background: #1a1414; }
+  .ail-card:hover::before { opacity: 1; }
+  .ail-card h3 {
+    font-family: 'Orbitron', sans-serif; font-size: 0.95rem; font-weight: 700;
+    color: var(--white); letter-spacing: 0.04em; margin-bottom: 0.5rem;
+  }
+  .status-badge {
+    display: inline-block; font-family: 'Share Tech Mono', monospace; font-size: 0.6rem;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent2);
+    border: 1px solid var(--border); padding: 0.15rem 0.5rem; margin-bottom: 0.85rem;
+  }
+  .ail-row { margin-bottom: 0.65rem; font-size: 0.88rem; line-height: 1.55; }
+  .ail-row:last-child { margin-bottom: 0; }
+  .ail-label {
+    font-family: 'Share Tech Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--accent2); display: block; margin-bottom: 0.2rem;
+  }
+  .ail-row p { color: var(--text); font-weight: 300; }
+  .ail-row.cure .ail-label { color: var(--accent); }
+  .ail-row.warn-row { border-left: 2px solid var(--warn); padding-left: 0.6rem; }
+  .ail-row.warn-row .ail-label { color: var(--warn); }
+
+  /* ── MEDICINE TABLES ── */
+  .table-block { margin-bottom: 2.5rem; }
+  .table-block h4 {
+    font-family: 'Orbitron', sans-serif; font-size: 0.85rem; color: var(--white);
+    letter-spacing: 0.06em; margin-bottom: 0.9rem; text-transform: uppercase;
+  }
+  .table-block h4 span { color: var(--accent2); font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; text-transform: none; letter-spacing: 0; }
+
+  .med-table-wrap { border: 1px solid var(--border); overflow-x: auto; }
+  table.med-table { width: 100%; border-collapse: collapse; min-width: 760px; }
+  .med-table thead th {
+    font-family: 'Orbitron', sans-serif; font-size: 0.65rem; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--white); background: var(--deep);
+    text-align: left; padding: 0.75rem 0.9rem; border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  .med-table td {
+    padding: 0.7rem 0.9rem; font-size: 0.82rem; color: var(--text); font-weight: 300;
+    border-bottom: 1px solid var(--border); vertical-align: top;
+  }
+  .med-table tr:last-child td { border-bottom: none; }
+  .med-table tr:hover td { background: rgba(255,43,43,0.04); }
+  .med-name { color: var(--white); font-weight: 500; white-space: nowrap; }
+  .med-class {
+    font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: var(--accent); white-space: nowrap;
+  }
+
+  /* ── FOOTER ── */
+  footer { background: var(--deep); border-top: 1px solid var(--border); padding: 3.5rem 2rem 2rem; }
+  .footer-inner {
+    max-width: 1150px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr;
+    gap: 3rem; padding-bottom: 2.5rem; border-bottom: 1px solid var(--border);
+  }
+  .footer-brand-name { font-family: 'Orbitron', sans-serif; font-weight: 900; color: var(--accent); letter-spacing: 0.15em; font-size: 1.1rem; }
+  .footer-brand-desc { margin-top: 0.85rem; font-size: 0.85rem; color: var(--muted); font-weight: 300; line-height: 1.65; max-width: 340px; }
+  .footer-col h4 { font-family: 'Orbitron', sans-serif; font-size: 0.75rem; color: var(--white); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 0.6rem; }
+  .footer-col a { font-size: 0.85rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--accent); }
+  .footer-bottom { max-width: 1150px; margin: 0 auto; padding-top: 1.75rem; display: flex; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+  .footer-copy { font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; color: var(--muted); line-height: 1.6; }
+  .footer-disclaimer { font-size: 0.75rem; color: var(--muted); font-weight: 300; max-width: 480px; text-align: right; line-height: 1.6; }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 1.25rem; }
+    .nav-links { display: none; }
+    .page-header { padding: 6rem 1.25rem 3rem; }
+    section { padding: 3rem 1.25rem; }
+    .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .footer-disclaimer { text-align: left; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="banov.html"><span>#1</span> NOCTURNIA</a>
+  <ul class="nav-links">
+    <li><a href="banov.html">Banov</a></li>
+    <li><a href="dayz.html">Servers</a></li>
+    <li><a href="#trauma">Trauma</a></li>
+    <li><a href="#diseases">Diseases</a></li>
+    <li><a href="#medicines">Medicines</a></li>
+  </ul>
+  <a class="nav-cta" href="https://discord.gg/YJ8G2sGskk" target="_blank" rel="noopener">Discord</a>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <span class="page-tag">// BANOV FIELD MEDICAL WIKI — TERJEMEDICINE</span>
+  <h1 class="page-title">TerjeMedicine Survival Guide</h1>
+  <p class="page-lead">Banov runs the <strong>TerjeMedicine</strong> overhaul, not the vanilla DayZ health system. Every illness and injury has its own stages, its own symptoms, and its own specific treatment — this page covers all of it, item by item.</p>
+  <div class="disclaimer-bar">
+    ⚠ This wiki reflects the TerjeMedicine mod as documented by its author (TerjeBruoygard). Item names, stages, and durations are pulled directly from the mod's own reference tables — if Banov's server config overrides any values, in-game behavior takes priority over this page.
+  </div>
+  <div class="chip-row">
+    <a class="chip" href="#quickref">Quick Reference</a>
+    <a class="chip" href="#trauma">Wounds &amp; Trauma</a>
+    <a class="chip" href="#diseases">Diseases &amp; Infections</a>
+    <a class="chip" href="#symptoms">Symptoms</a>
+    <a class="chip" href="#emotional">Emotional States</a>
+    <a class="chip" href="#prophylaxis">Prophylaxis</a>
+    <a class="chip" href="#medicines">Full Medicine Tables</a>
+  </div>
+</div>
+
+<!-- QUICK REFERENCE -->
+<section id="quickref">
+  <div class="container">
+    <span class="section-tag">// CHEAT SHEET</span>
+    <h2 class="section-title">Quick Reference by Condition</h2>
+    <p class="section-lead">One line per condition — the fastest thing to reach for. Full detail on causes, stages, and every alternative item is further down the page.</p>
+
+    <div class="med-table-wrap">
+      <table class="med-table">
+        <thead><tr><th>Condition</th><th>Reach For</th></tr></thead>
+        <tbody>
+          <tr><td class="med-name">Cold / Flu</td><td>Paracetamol + Tetracycline, or Amoxiclav</td></tr>
+          <tr><td class="med-name">Pneumonia</td><td>Amoxiclav, Piperacillin, or a stronger level 3 antibiotic</td></tr>
+          <tr><td class="med-name">Sepsis</td><td>Flemoclav or Imipenem (level 3 only)</td></tr>
+          <tr><td class="med-name">Food Poisoning</td><td>Charcoal or Polysorb first, then Phthalazole or Mesalazine</td></tr>
+          <tr><td class="med-name">Chemical Poisoning</td><td>AntiChem Injector, or Neurocetal for a mid-tier option</td></tr>
+          <tr><td class="med-name">Zombie Virus</td><td>Zerivax to prevent, Zivirol to treat</td></tr>
+          <tr><td class="med-name">Rabies</td><td>Rabivax to prevent; Rabinoline or Rifampicin to treat</td></tr>
+          <tr><td class="med-name">Bleeding (Hemostasis)</td><td>Vikasol, or Erytromixelin for a stronger effect</td></tr>
+          <tr><td class="med-name">Low Blood</td><td>Erythropoetin + Irovit</td></tr>
+          <tr><td class="med-name">Concussion</td><td>Noopept, or Neirox for faster recovery</td></tr>
+          <tr><td class="med-name">Hematomas</td><td>Viprosal, Capsicum, or Finalgon ointment</td></tr>
+          <tr><td class="med-name">Pain</td><td>Codeine or Paracetamol for minor; Morphine/Promidol for severe</td></tr>
+          <tr><td class="med-name">Knockout / Coma</td><td>CPR or Defibrillator from a teammate (if enabled on server)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- WOUNDS & TRAUMA -->
+<section id="trauma">
+  <div class="container">
+    <span class="section-tag">// PHYSICAL CONDITION</span>
+    <h2 class="section-title">Wounds &amp; Trauma</h2>
+    <p class="section-lead">Blunt hits, gunshots, blades, and blast damage each behave differently under TerjeMedicine. Hemostatic bandages, surgery kits, and specific medications all play a role.</p>
+
+    <div class="ail-grid">
+      <div class="ail-card" id="hematoma">
+        <h3>Hematomas</h3>
+        <span class="status-badge">In-game: Bruise (Hematoma)</span>
+        <div class="ail-row"><span class="ail-label">Cause</span><p>Zombie hits or blunt weapon strikes. Multiple hematomas at once will start draining your health.</p></div>
+        <div class="ail-row"><span class="ail-label">Recovery</span><p>Heals naturally over time.</p></div>
+        <div class="ail-row cure"><span class="ail-label">Treatment</span><p>Ointments speed up healing: Viprosal, Capsicum, or Finalgon.</p></div>
+      </div>
+
+      <div class="ail-card" id="wounds">
+        <h3>Gunshot, Stab &amp; Internal Organ Wounds</h3>
+        <span class="status-badge">In-game: Scratch / Deep Wound / Bullet Wound / Internal Organs Wound</span>
+        <div class="ail-row"><span class="ail-label">Cause</span><p>Melee (stab) or firearms (bullet). Both cause severe bleeding and need immediate bandaging.</p></div>
+        <div class="ail-row"><span class="ail-label">Symptoms</span><p>Hemostatic bandages control bleeding better than regular bandages or cloth. Even after bandaging, the wound can keep bleeding slightly until the foreign object (bullet/blade fragment) is removed via surgery. Severe cases become internal organ injuries — deeper and harder to treat.</p></div>
+        <div class="ail-row cure"><span class="ail-label">Treatment</span><p>Surgical tools to remove the object: Medical Bowl w/ Instrument (Ceramic or White), Field Surgical Kit, IFAK, or AFAK. Higher-tier kits heal faster and more reliably.</p></div>
+        <div class="ail-row warn-row"><span class="ail-label">Note</span><p>A well-maintained bulletproof vest can stop bullets outright (light vests stop small calibers only). A blocked bullet still leaves a hematoma even without penetration.</p></div>
+      </div>
+
+      <div class="ail-card" id="sutures">
+        <h3>Surgical Sutures</h3>
+        <span class="status-badge">In-game: Bandaged Wound (Clean/Dirty) / Sutured Wound (Clean/Dirty)</span>
+        <div class="ail-row"><span class="ail-label">Use</span><p>Applied during surgery to close wounds after object removal.</p></div>
+        <div class="ail-row"><span class="ail-label">Clean vs. Dirty</span><p>A bandaged or sutured wound stays in a "Clean" state as long as it's disinfected and monitored. Left dirty, it flips to a "Dirty" state that raises Sepsis risk sharply.</p></div>
+        <div class="ail-row warn-row"><span class="ail-label">Note</span><p>Must be regularly disinfected — dirty sutures or dressings are a direct path to Sepsis.</p></div>
+      </div>
+
+      <div class="ail-card" id="knockout">
+        <h3>Knockout / Coma</h3>
+        <span class="status-badge">Critical state — server config dependent</span>
+        <div class="ail-row"><span class="ail-label">Trigger</span><p>When health or blood drops critically low, instead of dying outright the player is knocked out and falls into a coma.</p></div>
+        <div class="ail-row"><span class="ail-label">While down</span><p>A downed player can be revived by a teammate, or finished off by an enemy.</p></div>
+        <div class="ail-row cure"><span class="ail-label">Revival</span><p>CPR, or a Defibrillator shock, brings blood and health back above the critical threshold and gets them back up (the shock itself also adds shock damage, so it's not risk-free).</p></div>
+        <div class="ail-row warn-row"><span class="ail-label">Note</span><p>This system is a server-side toggle (Knockout-to-Coma and Medical Coma settings) — whether it's active on Banov depends on the current server config, not just the mod defaults.</p></div>
+      </div>
+
+      <div class="ail-card" id="concussion">
+        <h3>Concussion</h3>
+        <span class="status-badge">In-game: Contusion</span>
+        <div class="ail-row"><span class="ail-label">Cause</span><p>A strong blow to the head from a blunt object, a nearby explosion, or a low-caliber bullet impact while wearing a ballistic helmet.</p></div>
+        <div class="ail-row"><span class="ail-label">Symptoms</span><p>Headache, dizziness, unstable coordination, blurred vision — all hurt movement and combat effectiveness.</p></div>
+        <div class="ail-row cure"><span class="ail-label">Treatment</span><p>Fades on its own, but Noopept (tablets) or Neirox (ampoule/injector) speed recovery.</p></div>
+      </div>
+
+      <div class="ail-card" id="hemostasis">
+        <h3>Bleeding Rate (Hemostasis)</h3>
+        <span class="status-badge">In-game: Fast Blood Clotting</span>
+        <div class="ail-row"><span class="ail-label">What it does</span><p>Your body's natural process of stopping blood loss. Certain meds slow bleeding to buy time for further treatment.</p></div>
+        <div class="ail-row cure"><span class="ail-label">Treatment</span><p>Vikasol (tablets) or Erytromixelin (injector).</p></div>
+      </div>
+
+      <div class="ail-card" id="hematopoiesis">
+        <h3>Blood Regeneration (Hematopoiesis)</h3>
+        <span class="status-badge">In-game: Blood Regeneration</span>
+        <div class="ail-row"><span class="ail-label">What it does</span><p>Your body's process of rebuilding red blood cells after cuts, scratches, and bullet wounds.</p></div>
+        <div class="ail-row cure"><span class="ail-label">Treatment</span><p>Irovit or Magnesium Sulfate (tablets), Erythropoetin (ampoule or injector), Erytromixelin (injector).</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DISEASES -->
+<section id="diseases" class="alt-bg">
+  <div class="container">
+    <span class="section-tag">// INFECTIONS AND DISEASES</span>
+    <h2 class="section-title">Diseases &amp; Infections</h2>
+    <p class="section-lead">Six distinct illnesses, each with its own cause, progression, and cure. Ignoring stage 1 almost always leads to a much worse stage 2 or 3.</p>
+
+    <div class="ail-grid">
+      <div class="ail-card" id="cold">
+        <h3>Cold → Pneumonia</h3>
+        <div class="ail-row"><span class="ail-label">Cause</span><p>Prolonged exposure to cold temperatures.</p></div>
+        <div class="ail-row"><span class="ail-label">Progression</span><p>Left untreated, a mild cold develops into pneumonia. Pneumonia causes slow, ongoing health loss.</p></div>
+        <div class="ail-row cure"><span class="ail-label">Treatment</span><p>A mild cold can be cured just by resting in a warm place. Anything past that needs an antibiotic of matching level or higher — Tetracycline, Paracetamol, or Amibaktam for level 1; Ibuprofen, Nurofen, Amoxiclav, Piperacillin, Ketarol, or Amoxivan for level 2; Topoisomerase, Imipenem, Flemoclave, or Amoxiclav (injector) for level 3. Multiple doses are often needed.</p></div>
+      </div>
+
+      <div class="ail-card" id="food-poisoning">
+        <h3>Food Poisoning</h3>
+        <span class="status-badge">In-game: Stomach Poison</span>
+        <div class="ail-row"><span class="ail-label">Cause</span><p>Spoiled or undercooked food, rotten fruit, poisonous mushrooms, dirty water, or accidentally ingesting things like gasoline.</p></div>
+        <div class="ail-row"><span class="ail-label">Symptoms</span><p>Nausea and vomiting hit fast. Left untreated it worsens into dehydration and gradual health loss.</p></div>
+        <div class="ail-row cure"><span class="ail-label">Treatment</span><p>Drink plenty of water alongside medication. Level 1: Charcoal or Polysorb (tablets), Phthalazole. Level 2: Mesalazine, Chelating Tablets, Metoclopramid (ampoule). Level 3: Heptral (ampoule), Stomaproxidal (injector).</p></div>
+      </div>
+
+      <div class="ail-card" id="chemical">
+        <h3>Chemical Poisoning</h3>
+        <div class="ail-row"><span class="ail-label">Cause</span><p>Inhaling toxic gases.</p></div>
+        <div class="ail-row"><span class="ail-label">Symptoms</span><p>Starts as coughing, then nausea and vomiting as it worsens. Later stages cause severe, potentially fatal health loss without prompt treatment.</p></div>
+        <div class="ail-row cure"><span class="ail-label">Treatment</span><p>Rombiopental (level 1 tablets), Neurocetal (level 2 ampoule), AntiChem Injector (level 3).</p></div>
+      </div>
+
+      <div class="ail-card" id="zombie-virus">
+        <h3>Zombie Virus</h3>
+        <div class="ail-row"><span class="ail-label">Cause</span><p>Airborne droplets and bodily fluids — small chance during close combat with infected, much higher if a zombie actually wounds you.</p></div>
+        <div class="ail-row"><span class="ail-label">Symptoms</span><p>Long incubation period — you get over an hour of real time to find an antidote before it turns terminal. In the terminal stage, health declines rapidly.</p></div>
+        <div class="ail-row cure"><span class="ail-label">Treatment</span><p>Zivirol, as an ampoule or injector. Note the antidote itself costs -20 health / -10 blood / -100 shock on injection, so use it before you're already critical.</p></div>
+        <div class="ail-row warn-row"><span class="ail-label">Prevent</span><p>A face mask and ballistic armor reduce infection risk. The Zerivax vaccine builds immunity in advance.</p></div>
+      </div>
+
+      <div class="ail-card" id="sepsis">
+        <h3>Sepsis</h3>
+        <span class="status-badge">In-game: Blood Poisoning</span>
+        <div class="ail-row"><span class="ail-label">Cause</span><p>Infection entering an open wound — zombie scratch, knife wound, or gunshot, with the odds rising sharply if you handle the wound with dirty hands (or use unsterile sutures).</p></div>
+        <div class="ail-row"><span class="ail-label">Symptoms</span><p>Health deteriorates gradually if left untreated.</p></div>
+        <div class="ail-row cure"><span class="ail-label">Treatment</span><p>Flemoclav or Imipenem (ampoules), Amoxiclav or Topoisomerase (injectors) — all level 3.</p></div>
+        <div class="ail-row warn-row"><span class="ail-label">Prevent</span><p>Disinfect hands and instruments before touching any open wound.</p></div>
+      </div>
+
+      <div class="ail-card" id="rabies">
+        <h3>Rabies</h3>
+        <div class="ail-row"><span class="ail-label">Cause</span><p>Bites from infected animals such as wolves.</p></div>
+        <div class="ail-row"><span class="ail-label">Progression</span><p>No immediate symptoms. Stage 1: mild temperature swings and weakness, easy to miss. Stage 2: severe nausea/vomiting that stops you eating or drinking. Stage 3: temperature spike, rapid health loss, exhaustion — fatal without treatment.</p></div>
+        <div class="ail-row cure"><span class="ail-label">Treatment</span><p>Rabinoline (level 2 ampoule), Rifampicin (level 3 ampoule), Rabinucoline (level 3 injector). Treat early — waiting for stage 3 is a bad bet.</p></div>
+        <div class="ail-row warn-row"><span class="ail-label">Prevent</span><p>The Rabivax vaccine stops the disease from progressing if taken before infection.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SYMPTOMS -->
+<section id="symptoms">
+  <div class="container">
+    <span class="section-tag">// SYMPTOMS</span>
+    <h2 class="section-title">Pain &amp; Overdose</h2>
+    <p class="section-lead">Two mechanics that cut across every injury and illness above.</p>
+
+    <div class="ail-grid">
+      <div class="ail-card" id="pain">
+        <h3>Pain</h3>
+        <div class="ail-row"><span class="ail-label">Cause</span><p>Any injury — intensity scales with how severe the trauma is.</p></div>
+        <div class="ail-row"><span class="ail-label">Recovery</span><p>Fades on its own over time.</p></div>
+        <div class="ail-row cure"><span class="ail-label">Treatment</span><p>Painkillers of the matching level or higher speed relief: Codeine, Analgin, Nimesulide, Paracetamol, Ibuprofen, Nurofen, Noopept, or Ketarol at level 1; Novacaine or Propital at level 2; Morphinocin, Hexobarbital, Reanimatal, Morphine, or Promidol at level 3.</p></div>
+      </div>
+
+      <div class="ail-card" id="overdose">
+        <h3>Overdose</h3>
+        <div class="ail-row"><span class="ail-label">Cause</span><p>Taking in too much medication or toxic substance — every med on this page carries an overdose value, and stacking doses adds up.</p></div>
+        <div class="ail-row"><span class="ail-label">Stage 1</span><p>Nausea and hallucinations, loss of clarity.</p></div>
+        <div class="ail-row"><span class="ail-label">Stage 2</span><p>Worsens further — possible loss of consciousness, leaving you vulnerable.</p></div>
+        <div class="ail-row warn-row"><span class="ail-label">Stage 3</span><p>Critical health deterioration — this stage is life-threatening.</p></div>
+        <div class="ail-row cure"><span class="ail-label">Treatment</span><p>Toxins clear gradually on their own. Drinking water helps flush the system.</p></div>
+        <div class="ail-row warn-row"><span class="ail-label">Note</span><p>Don't chain doses of the same medicine back to back — space treatments out and only escalate to the next tier if the lower one isn't enough.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EMOTIONAL STATES -->
+<section id="emotional" class="alt-bg">
+  <div class="container">
+    <span class="section-tag">// EMOTIONAL STATES</span>
+    <h2 class="section-title">Sleep &amp; Mental Health</h2>
+    <p class="section-lead">TerjeMedicine tracks fatigue and psychological stress as real survival stats, not just flavor.</p>
+
+    <div class="ail-grid">
+      <div class="ail-card" id="sleep">
+        <h3>Sleep</h3>
+        <div class="ail-row"><span class="ail-label">Mechanic</span><p>Sleep is now tracked like food and water. Yellow indicator: yawning and gradually worsening vision. Red indicator: risk of passing out from exhaustion.</p></div>
+        <div class="ail-row"><span class="ail-label">Requirements</span><p>Sleep is impossible while freezing, starving, or suffering a stage 2+ illness. Warm places — fireplaces, tents, houses, sleeping bags — are ideal.</p></div>
+        <div class="ail-row cure"><span class="ail-label">Benefit</span><p>Sleeping rapidly restores health and blood, and gives a chance to shake off mild illnesses like a stage 1 flu. Energy drinks (MadBull, Gang, Yaguar, PrayBoy, 6Energy) temporarily push back fatigue when you can't afford to sleep.</p></div>
+      </div>
+
+      <div class="ail-card" id="mental">
+        <h3>Mental Health</h3>
+        <div class="ail-row"><span class="ail-label">Cause</span><p>Extreme stress: zombie attacks, prolonged exposure to Psionic Zones, or eating human meat.</p></div>
+        <div class="ail-row"><span class="ail-label">Symptoms</span><p>Nervous breakdowns, hallucinations, panic, and disorientation — all make survival and interacting with the world harder.</p></div>
+        <div class="ail-row cure"><span class="ail-label">Treatment</span><p>Antidepressants stabilize the psyche: Adepress, Agteminol, or Venlafaxine (tablets); Actaparoxetine, Amitriptyline, or Metralindole (ampoules); Amfitalicyne (injector).</p></div>
+      </div>
+
+      <div class="ail-card" id="psionic">
+        <h3>Psionic Zones</h3>
+        <div class="ail-row"><span class="ail-label">Danger</span><p>Areas with high psychoactive effects. The closer you are to the zone's center, the stronger the effect — panic, hallucinations, loss of control. If mental state hits zero, the character can take unpredictable, potentially fatal actions.</p></div>
+        <div class="ail-row cure"><span class="ail-label">Protection</span><p>Antidepressants stabilize mental state while inside. A PSI Helm gives roughly 95% protection.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROPHYLAXIS -->
+<section id="prophylaxis">
+  <div class="container">
+    <span class="section-tag">// PROPHYLAXIS AND TREATMENT</span>
+    <h2 class="section-title">Prevention: Vaccines &amp; Disinfection</h2>
+    <p class="section-lead">The two habits that stop most of the diseases above before they ever start.</p>
+
+    <div class="ail-grid">
+      <div class="ail-card" id="vaccines">
+        <h3>Vaccines</h3>
+        <div class="ail-row"><span class="ail-label">What they do</span><p>Build immunity to a specific disease in advance, cutting infection risk significantly. Best used before you go somewhere risky, and re-applied when immunity wears off.</p></div>
+        <div class="ail-row cure"><span class="ail-label">Options</span><p>Vaxicam (against Cold), Zerivax (against Zombie Virus), Rabivax (against Rabies).</p></div>
+      </div>
+
+      <div class="ail-card" id="disinfection">
+        <h3>Disinfection</h3>
+        <span class="status-badge">In-game buff: Disinfected Hands</span>
+        <div class="ail-row"><span class="ail-label">Why it matters</span><p>Mandatory for sterility. Dirty medical items and unwashed hands are the main path to wound infection and sepsis, especially before any field medical procedure.</p></div>
+        <div class="ail-row cure"><span class="ail-label">Items</span><p>Alcoholic Tincture, Disinfectant Spray.</p></div>
+        <div class="ail-row warn-row"><span class="ail-label">Note</span><p>Syringes used with ampoules become contaminated after every injection — disinfect with alcohol or boil in a pot over a fire before reuse.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FULL MEDICINE TABLES -->
+<section id="medicines" class="alt-bg">
+  <div class="container">
+    <span class="section-tag">// SUPPLY REFERENCE</span>
+    <h2 class="section-title">Full Medicine Tables</h2>
+    <p class="section-lead">Every item, its in-game classname, treatment level, form, and duration — pulled directly from the mod's own data. Tablets = early-stage/prevention. Ampoules = mid-to-severe stages, need a syringe. Injectors = same as ampoules but disposable, no syringe needed.</p>
+
+    <div class="table-block">
+      <h4>Cold / Pneumonia <span>(antibiotics)</span></h4>
+      <div class="med-table-wrap"><table class="med-table">
+        <thead><tr><th>Name</th><th>Classname</th><th>Level</th><th>Form</th><th>Duration</th><th>Overdose</th></tr></thead>
+        <tbody>
+          <tr><td class="med-name">Tetracycline</td><td class="med-class">TetracyclineAntibiotics</td><td>1</td><td>Tablets</td><td>300s</td><td>0.45</td></tr>
+          <tr><td class="med-name">Paracetamol</td><td class="med-class">TerjePillsParacetamol</td><td>1</td><td>Tablets</td><td>200s</td><td>0.45</td></tr>
+          <tr><td class="med-name">Amibaktam</td><td class="med-class">TerjePillsAmibaktam</td><td>1</td><td>Tablets</td><td>60s</td><td>0.05</td></tr>
+          <tr><td class="med-name">Ibuprofen</td><td class="med-class">TerjePillsIbuprofen</td><td>2</td><td>Tablets</td><td>300s</td><td>0.35</td></tr>
+          <tr><td class="med-name">Nurofen</td><td class="med-class">TerjePillsNurofen</td><td>2</td><td>Tablets</td><td>300s</td><td>0.52</td></tr>
+          <tr><td class="med-name">Amoxiclav</td><td class="med-class">TerjePillsAmoxiclav</td><td>2</td><td>Tablets</td><td>1200s</td><td>0.75</td></tr>
+          <tr><td class="med-name">Piperacillin</td><td class="med-class">TerjePillsPiperacylin</td><td>2</td><td>Tablets</td><td>1100s</td><td>0.45</td></tr>
+          <tr><td class="med-name">Ketarol</td><td class="med-class">TerjeAmpouleKetarol</td><td>2</td><td>Ampoule</td><td>1200s</td><td>0.5</td></tr>
+          <tr><td class="med-name">Amoxivan</td><td class="med-class">TerjeAmpouleAmoxivan</td><td>2</td><td>Ampoule</td><td>900s</td><td>0.3</td></tr>
+          <tr><td class="med-name">Topoisomerase</td><td class="med-class">TerjeInjectorTopoizomeraza</td><td>3</td><td>Injector</td><td>900s</td><td>0.65</td></tr>
+          <tr><td class="med-name">Imipenem</td><td class="med-class">TerjeAmpouleImipenem</td><td>3</td><td>Ampoule</td><td>900s</td><td>0.7</td></tr>
+          <tr><td class="med-name">Flemoclave</td><td class="med-class">TerjeAmpouleFlemoclav</td><td>3</td><td>Ampoule</td><td>1200s</td><td>0.8</td></tr>
+          <tr><td class="med-name">Amoxiclav</td><td class="med-class">TerjeInjectorAmoxiclav</td><td>3</td><td>Injector</td><td>1800s</td><td>0.6</td></tr>
+          <tr><td class="med-name">Vaxicam (vaccine)</td><td class="med-class">TerjeAmpouleVaxicam</td><td>—</td><td>Ampoule</td><td>14400s</td><td>0.8</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="table-block">
+      <h4>Food Poisoning</h4>
+      <div class="med-table-wrap"><table class="med-table">
+        <thead><tr><th>Name</th><th>Classname</th><th>Level</th><th>Form</th><th>Duration</th><th>Overdose</th></tr></thead>
+        <tbody>
+          <tr><td class="med-name">Charcoal</td><td class="med-class">CharcoalTablets</td><td>1</td><td>Tablets</td><td>300s</td><td>0.01</td></tr>
+          <tr><td class="med-name">Polysorb</td><td class="med-class">TerjePillsPolisorb</td><td>1</td><td>Tablets</td><td>300s</td><td>0.05</td></tr>
+          <tr><td class="med-name">Phthalazole</td><td class="med-class">TerjePillsFtalazol</td><td>1</td><td>Tablets</td><td>1200s</td><td>0.25</td></tr>
+          <tr><td class="med-name">Mesalazine</td><td class="med-class">TerjePillsMesalazin</td><td>2</td><td>Tablets</td><td>600s</td><td>0.35</td></tr>
+          <tr><td class="med-name">Chelating Tablets</td><td class="med-class">ChelatingTablets</td><td>2</td><td>Tablets</td><td>600s</td><td>0.6</td></tr>
+          <tr><td class="med-name">Metoclopramid</td><td class="med-class">TerjeAmpouleMetoclopramid</td><td>2</td><td>Ampoule</td><td>1200s</td><td>0.4</td></tr>
+          <tr><td class="med-name">Heptral</td><td class="med-class">TerjeAmpouleHeptral</td><td>3</td><td>Ampoule</td><td>600s</td><td>0.6</td></tr>
+          <tr><td class="med-name">Stomaproxidal</td><td class="med-class">TerjeInjectorStomaproxidal</td><td>3</td><td>Injector</td><td>900s</td><td>0.68</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="table-block">
+      <h4>Chemical Poisoning</h4>
+      <div class="med-table-wrap"><table class="med-table">
+        <thead><tr><th>Name</th><th>Classname</th><th>Level</th><th>Form</th><th>Duration</th><th>Overdose</th></tr></thead>
+        <tbody>
+          <tr><td class="med-name">Rombiopental</td><td class="med-class">TerjePillsRombiopental</td><td>1</td><td>Tablets</td><td>30s</td><td>0.15</td></tr>
+          <tr><td class="med-name">Neurocetal</td><td class="med-class">TerjeAmpouleNeirocetal</td><td>2</td><td>Ampoule</td><td>500s</td><td>1.25</td></tr>
+          <tr><td class="med-name">AntiChem Injector</td><td class="med-class">AntiChemInjector</td><td>3</td><td>Injector</td><td>180s</td><td>1.1</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="table-block">
+      <h4>Zombie Virus</h4>
+      <div class="med-table-wrap"><table class="med-table">
+        <thead><tr><th>Name</th><th>Classname</th><th>Type</th><th>Form</th><th>Duration</th><th>Overdose</th></tr></thead>
+        <tbody>
+          <tr><td class="med-name">Zivirol</td><td class="med-class">TerjeAmpouleZivirol</td><td>Treatment</td><td>Ampoule</td><td>1000s</td><td>2.35</td></tr>
+          <tr><td class="med-name">Zivirol</td><td class="med-class">TerjeInjectorZivirol</td><td>Treatment</td><td>Injector</td><td>1200s</td><td>2.5</td></tr>
+          <tr><td class="med-name">Zerivax</td><td class="med-class">TerjeAmpouleZerivax</td><td>Vaccine</td><td>Ampoule</td><td>7200s</td><td>1.5</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="table-block">
+      <h4>Sepsis</h4>
+      <div class="med-table-wrap"><table class="med-table">
+        <thead><tr><th>Name</th><th>Classname</th><th>Level</th><th>Form</th><th>Duration</th><th>Overdose</th></tr></thead>
+        <tbody>
+          <tr><td class="med-name">Flemoclav</td><td class="med-class">TerjeAmpouleFlemoclav</td><td>3</td><td>Ampoule</td><td>1200s</td><td>0.8</td></tr>
+          <tr><td class="med-name">Imipenem</td><td class="med-class">TerjeAmpouleImipenem</td><td>3</td><td>Ampoule</td><td>900s</td><td>0.7</td></tr>
+          <tr><td class="med-name">Amoxiclav</td><td class="med-class">TerjeInjectorAmoxiclav</td><td>3</td><td>Injector</td><td>300s</td><td>0.6</td></tr>
+          <tr><td class="med-name">Topoisomerase</td><td class="med-class">TerjeInjectorTopoizomeraza</td><td>3</td><td>Injector</td><td>600s</td><td>0.65</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="table-block">
+      <h4>Rabies</h4>
+      <div class="med-table-wrap"><table class="med-table">
+        <thead><tr><th>Name</th><th>Classname</th><th>Level</th><th>Form</th><th>Duration</th><th>Overdose</th></tr></thead>
+        <tbody>
+          <tr><td class="med-name">Rabinoline</td><td class="med-class">TerjeAmpouleRabinoline</td><td>2</td><td>Ampoule</td><td>600s</td><td>0.8</td></tr>
+          <tr><td class="med-name">Rifampicin</td><td class="med-class">TerjeAmpouleRifampicyne</td><td>3</td><td>Ampoule</td><td>300s</td><td>1.35</td></tr>
+          <tr><td class="med-name">Rabinucoline</td><td class="med-class">TerjeInjectorRabinucoline</td><td>3</td><td>Injector</td><td>900s</td><td>1.46</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="table-block">
+      <h4>Pain</h4>
+      <div class="med-table-wrap"><table class="med-table">
+        <thead><tr><th>Name</th><th>Classname</th><th>Level</th><th>Form</th><th>Duration</th><th>Overdose</th></tr></thead>
+        <tbody>
+          <tr><td class="med-name">Codeine</td><td class="med-class">PainkillerTablets</td><td>1</td><td>Tablets</td><td>300s</td><td>0.2</td></tr>
+          <tr><td class="med-name">Analgin</td><td class="med-class">TerjePillsAnalgin</td><td>1</td><td>Tablets</td><td>500s</td><td>0.15</td></tr>
+          <tr><td class="med-name">Nimesulide</td><td class="med-class">TerjePillsNimesulid</td><td>1</td><td>Tablets</td><td>600s</td><td>0.25</td></tr>
+          <tr><td class="med-name">Paracetamol</td><td class="med-class">TerjePillsParacetamol</td><td>1</td><td>Tablets</td><td>200s</td><td>0.45</td></tr>
+          <tr><td class="med-name">Ibuprofen</td><td class="med-class">TerjePillsIbuprofen</td><td>1</td><td>Tablets</td><td>600s</td><td>0.35</td></tr>
+          <tr><td class="med-name">Nurofen</td><td class="med-class">TerjePillsNurofen</td><td>1</td><td>Tablets</td><td>350s</td><td>0.52</td></tr>
+          <tr><td class="med-name">Noopept</td><td class="med-class">TerjePillsNoopept</td><td>1</td><td>Tablets</td><td>380s</td><td>0.35</td></tr>
+          <tr><td class="med-name">Ketarol</td><td class="med-class">TerjeAmpouleKetarol</td><td>1</td><td>Ampoule</td><td>1200s</td><td>0.5</td></tr>
+          <tr><td class="med-name">Novacaine</td><td class="med-class">TerjeAmpouleNovacaine</td><td>2</td><td>Ampoule</td><td>1200s</td><td>0.4</td></tr>
+          <tr><td class="med-name">Propital</td><td class="med-class">TerjeInjectorPropital</td><td>2</td><td>Injector</td><td>180s</td><td>0.75</td></tr>
+          <tr><td class="med-name">Morphinocin</td><td class="med-class">TerjeAmpouleMorphine</td><td>3</td><td>Ampoule</td><td>850s</td><td>0.52</td></tr>
+          <tr><td class="med-name">Hexobarbital</td><td class="med-class">TerjeAmpouleGexobarbital</td><td>3</td><td>Ampoule</td><td>900s</td><td>0.65</td></tr>
+          <tr><td class="med-name">Reanimatal</td><td class="med-class">TerjeInjectorReanimatal</td><td>3</td><td>Injector</td><td>240s</td><td>1.85</td></tr>
+          <tr><td class="med-name">Morphine</td><td class="med-class">Morphine</td><td>3</td><td>Injector</td><td>300s</td><td>0.75</td></tr>
+          <tr><td class="med-name">Promidol</td><td class="med-class">TerjeInjectorPromidol</td><td>3</td><td>Injector</td><td>600s</td><td>0.45</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="table-block">
+      <h4>Hematomas</h4>
+      <div class="med-table-wrap"><table class="med-table">
+        <thead><tr><th>Name</th><th>Classname</th><th>Form</th><th>Duration</th><th>Overdose</th></tr></thead>
+        <tbody>
+          <tr><td class="med-name">Viprosal</td><td class="med-class">TerjeSalveViprosal</td><td>Ointment</td><td>300s</td><td>0.0</td></tr>
+          <tr><td class="med-name">Capsicum</td><td class="med-class">TerjeSalveCapsicum</td><td>Ointment</td><td>400s</td><td>0.0</td></tr>
+          <tr><td class="med-name">Finalgon</td><td class="med-class">TerjeSalveFinalgon</td><td>Ointment</td><td>600s</td><td>0.0</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="table-block">
+      <h4>Surgical Tools <span>(gunshot / stab / internal organ wounds)</span></h4>
+      <div class="med-table-wrap"><table class="med-table">
+        <thead><tr><th>Name</th><th>Classname</th><th>Volume</th><th>Internal Organs (chance/time)</th><th>Bullet (chance/time)</th><th>Stab (chance/time)</th></tr></thead>
+        <tbody>
+          <tr><td class="med-name">Medical Bowl (Ceramic)</td><td class="med-class">TerjeSurgicalTool_Ceramic</td><td>1</td><td>0.05 / 90s</td><td>0.2 / 40s</td><td>0.4 / 30s</td></tr>
+          <tr><td class="med-name">Medical Bowl (White)</td><td class="med-class">TerjeSurgicalTool_White</td><td>1</td><td>0.05 / 90s</td><td>0.2 / 40s</td><td>0.4 / 30s</td></tr>
+          <tr><td class="med-name">Field Surgical Kit</td><td class="med-class">TerjeSurgicalKit</td><td>5</td><td>0.2 / 40s</td><td>0.5 / 25s</td><td>0.7 / 20s</td></tr>
+          <tr><td class="med-name">IFAK</td><td class="med-class">TerjeFirstAidKitIndividual_Black</td><td>10</td><td>0.3 / 40s</td><td>0.6 / 30s</td><td>0.8 / 20s</td></tr>
+          <tr><td class="med-name">AFAK</td><td class="med-class">TerjeFirstAidKitAdvance_Black</td><td>20</td><td>0.3 / 40s</td><td>0.6 / 30s</td><td>0.8 / 20s</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="table-block">
+      <h4>Concussion</h4>
+      <div class="med-table-wrap"><table class="med-table">
+        <thead><tr><th>Name</th><th>Classname</th><th>Form</th><th>Duration</th><th>Overdose</th></tr></thead>
+        <tbody>
+          <tr><td class="med-name">Noopept</td><td class="med-class">TerjePillsNoopept</td><td>Tablets</td><td>380s</td><td>0.35</td></tr>
+          <tr><td class="med-name">Neirox</td><td class="med-class">TerjeAmpouleNeirox</td><td>Ampoule</td><td>600s</td><td>0.6</td></tr>
+          <tr><td class="med-name">Neirox</td><td class="med-class">TerjeInjectorNeirox</td><td>Injector</td><td>500s</td><td>0.3</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="table-block">
+      <h4>Bleeding Rate &amp; Blood Regeneration</h4>
+      <div class="med-table-wrap"><table class="med-table">
+        <thead><tr><th>Name</th><th>Classname</th><th>Purpose</th><th>Form</th><th>Duration</th><th>Overdose</th></tr></thead>
+        <tbody>
+          <tr><td class="med-name">Vikasol</td><td class="med-class">TerjePillsVikasol</td><td>Bleeding rate</td><td>Tablets</td><td>300s</td><td>0.15</td></tr>
+          <tr><td class="med-name">Erytromixelin</td><td class="med-class">TerjeInjectorErytromixelin</td><td>Bleeding rate / regen</td><td>Injector</td><td>300s</td><td>0.32</td></tr>
+          <tr><td class="med-name">Irovit</td><td class="med-class">TerjePillsIrovit</td><td>Blood regen</td><td>Tablets</td><td>120s</td><td>0.3</td></tr>
+          <tr><td class="med-name">Magnesium Sulfate</td><td class="med-class">TerjePillsMagnesiumSulfate</td><td>Blood regen</td><td>Tablets</td><td>120s</td><td>0.3</td></tr>
+          <tr><td class="med-name">Erythropoetin</td><td class="med-class">TerjeAmpouleErythropoetin</td><td>Blood regen</td><td>Ampoule</td><td>600s</td><td>0.4</td></tr>
+          <tr><td class="med-name">Erythropoetin</td><td class="med-class">TerjeInjectorErythropoietin</td><td>Blood regen</td><td>Injector</td><td>900s</td><td>0.4</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="table-block">
+      <h4>Mental Health</h4>
+      <div class="med-table-wrap"><table class="med-table">
+        <thead><tr><th>Name</th><th>Classname</th><th>Level</th><th>Form</th><th>Duration</th><th>Overdose</th></tr></thead>
+        <tbody>
+          <tr><td class="med-name">Adepress</td><td class="med-class">TerjePillsAdepress</td><td>1</td><td>Tablets</td><td>150s</td><td>0.2</td></tr>
+          <tr><td class="med-name">Agteminol</td><td class="med-class">TerjePillsAgteminol</td><td>1</td><td>Tablets</td><td>120s</td><td>0.2</td></tr>
+          <tr><td class="med-name">Venlafaxine</td><td class="med-class">TerjePillsVenlafaxine</td><td>1</td><td>Tablets</td><td>250s</td><td>0.3</td></tr>
+          <tr><td class="med-name">Actaparoxetine</td><td class="med-class">TerjeAmpouleActaparoxetine</td><td>2</td><td>Ampoule</td><td>400s</td><td>0.4</td></tr>
+          <tr><td class="med-name">Metralindole</td><td class="med-class">TerjeAmpouleMetralindole</td><td>2</td><td>Ampoule</td><td>300s</td><td>0.1</td></tr>
+          <tr><td class="med-name">Amitriptyline</td><td class="med-class">TerjeAmpouleAmitriptyline</td><td>3</td><td>Ampoule</td><td>600s</td><td>0.4</td></tr>
+          <tr><td class="med-name">Amfitalicyne</td><td class="med-class">TerjeInjectorAmfitalicyne</td><td>3</td><td>Injector</td><td>520s</td><td>0.6</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="table-block">
+      <h4>Sleep / Energy</h4>
+      <div class="med-table-wrap"><table class="med-table">
+        <thead><tr><th>Name</th><th>Classname</th><th>Strength</th><th>Form</th></tr></thead>
+        <tbody>
+          <tr><td class="med-name">MadBull® Energy Drink</td><td class="med-class">TerjeDrinkMadBull</td><td>8</td><td>Bottle</td></tr>
+          <tr><td class="med-name">Gang® Energy Drink</td><td class="med-class">TerjeDrinkGang</td><td>6</td><td>Bottle</td></tr>
+          <tr><td class="med-name">Yaguar® Energy Drink</td><td class="med-class">TerjeDrinkYaguar</td><td>10</td><td>Bottle</td></tr>
+          <tr><td class="med-name">PrayBoy® Energy Drink</td><td class="med-class">TerjeDrinkPrayboy</td><td>4</td><td>Bottle</td></tr>
+          <tr><td class="med-name">6Energy® Energy Drink</td><td class="med-class">TerjeDrink6Energy</td><td>8</td><td>Bottle</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="table-block">
+      <h4>Vaccines &amp; Disinfection</h4>
+      <div class="med-table-wrap"><table class="med-table">
+        <thead><tr><th>Name</th><th>Classname</th><th>Protects Against</th><th>Form</th><th>Duration</th></tr></thead>
+        <tbody>
+          <tr><td class="med-name">Vaxicam</td><td class="med-class">TerjeAmpouleVaxicam</td><td>Cold</td><td>Ampoule</td><td>14400s</td></tr>
+          <tr><td class="med-name">Zerivax</td><td class="med-class">TerjeAmpouleZerivax</td><td>Zombie Virus</td><td>Ampoule</td><td>7200s</td></tr>
+          <tr><td class="med-name">Rabivax</td><td class="med-class">TerjeAmpouleRabivax</td><td>Rabies</td><td>Ampoule</td><td>14400s</td></tr>
+          <tr><td class="med-name">Alcoholic Tincture</td><td class="med-class">DisinfectantAlcohol</td><td>Wound / instrument disinfection</td><td>—</td><td>—</td></tr>
+          <tr><td class="med-name">Disinfectant Spray</td><td class="med-class">DisinfectantSpray</td><td>Wound / instrument disinfection</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <span class="footer-brand-name">NOCTURNIA</span>
+      <p class="footer-brand-desc">Nocturnia PVE | Banov | The Alien War. Hardcore Sci-Fi PvE DayZ on the 256km² Banov map. AI Companions, underground complexes, and zero pay-to-win.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="banov.html">Banov Home</a></li>
+        <li><a href="dayz.html">All Servers</a></li>
+        <li><a href="#trauma">Wounds &amp; Trauma</a></li>
+        <li><a href="#diseases">Diseases</a></li>
+        <li><a href="#medicines">Medicine Tables</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Community</h4>
+      <ul>
+        <li><a href="https://discord.gg/YJ8G2sGskk" target="_blank" rel="noopener">Discord</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">
+      © 2026 NOCTURNIA. All rights reserved.<br>
+      Server IP: 66.148.51.243:2413
+    </div>
+    <p class="footer-disclaimer">
+      This website and NOCTURNIA are unrelated to, not sponsored by, and not endorsed by Bohemia Interactive a.s. DayZ® and Bohemia Interactive® are trademarks of Bohemia Interactive a.s. TerjeMedicine is an independent mod by TerjeBruoygard, unaffiliated with Nocturnia.
+    </p>
+  </div>
+</footer>
+
+<!-- SURVIVOR PROTOCOL BADGE -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+.dayz-badge-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  background: rgba(10, 11, 12, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 2px solid #ff2a2a;
+  box-shadow: 
+    0 6px 18px rgba(0, 0, 0, 0.85),
+    inset 0 0 10px rgba(0, 0, 0, 0.6);
+  font-family: 'Share Tech Mono', monospace;
+  overflow: hidden;
+  width: 150px;
+  margin: 24px auto;
+  border-radius: 4px;
+}
+.hud-scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  ), linear-gradient(
+    90deg, 
+    rgba(255, 0, 0, 0.03), 
+    rgba(0, 255, 0, 0.01), 
+    rgba(0, 0, 255, 0.03)
+  );
+  background-size: 100% 4px, 6px 100%;
+  z-index: 1;
+}
+.tactical-visor {
+  position: relative;
+  width: 70px;
+  height: 3px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 1px;
+  margin-bottom: 6px;
+  overflow: hidden;
+  z-index: 2;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.laser-scanner {
+  position: absolute;
+  top: 0;
+  width: 18px;
+  height: 100%;
+  background: linear-gradient(to right, transparent, #ff0000, transparent);
+  box-shadow: 
+    0 0 6px #ff0000,
+    0 0 12px rgba(255, 0, 0, 0.7);
+  animation: cylon-scan 0.9s infinite ease-in-out alternate;
+}
+.badge-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+.hud-label {
+  font-size: 6px;
+  color: #ff2a2a;
+  letter-spacing: 0.12em;
+  opacity: 0.85;
+}
+.designed-by {
+  font-size: 6.5px;
+  color: #a0a5ad;
+  letter-spacing: 0.1em;
+}
+.creator-name {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  color: #ffffff;
+  text-shadow: 
+    0 0 8px rgba(255, 255, 255, 0.1),
+    1.5px 1.5px 0px rgba(0, 0, 0, 0.9);
+}
+@keyframes cylon-scan {
+  0% { left: -25%; }
+  100% { left: 100%; }
+}
+</style>
+<div class="dayz-badge-container">
+  <div class="hud-scanlines"></div>
+  <div class="tactical-visor">
+    <div class="laser-scanner"></div>
+  </div>
+  <div class="badge-content">
+    <span class="hud-label">SURVIVOR PROTOCOL /</span>
+    <span class="designed-by">DESIGNED & BUILT BY</span>
+    <span class="creator-name">TJOKERK</span>
+  </div>
+</div>
+
+</body>
+</html>
