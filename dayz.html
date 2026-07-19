@@ -143,6 +143,17 @@
     opacity: 0.7;
   }
 
+  /* Cherno button — starter/noob amber, vanilla-leaning */
+  .btn-cherno .btn-bg {
+    background: rgba(120, 80, 10, 0.14);
+    border: 1px solid rgba(255, 176, 32, 0.5);
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+  .btn-cherno .btn-label { color: #ffb020; text-shadow: 0 0 20px rgba(255,176,32,0.7); }
+  .btn-cherno .btn-sub { color: #ffb020; }
+  .btn-cherno:hover .btn-bg { background: rgba(120, 80, 10, 0.28); box-shadow: 0 0 40px rgba(255,176,32,0.3) inset; }
+  .btn-cherno:hover { box-shadow: 0 0 30px rgba(255,176,32,0.4); }
+
   /* Banov button — gunmetal black / diamond-plate red, ref: Banov_Gun.png */
   .btn-banov .btn-bg {
     background:
@@ -194,12 +205,17 @@
   <div class="bg"></div>
   <div class="content">
     <div class="buttons">
+      <a href="cherno.html" class="server-btn btn-cherno">
+        <div class="btn-bg"></div>
+        <span class="btn-label">Cherno</span>
+        <span class="btn-sub">Starter Server &middot; Vanilla+</span>
+      </a>
       <a href="banov.html" class="server-btn btn-banov">
         <div class="btn-bg"></div>
         <span class="btn-label">Banov</span>
         <span class="btn-sub">Sci-Fi PvE &middot; Progression</span>
       </a>
-      <a href="deerisle-construction.html" class="server-btn btn-deerisle">
+      <a href="deerisle.html" class="server-btn btn-deerisle">
         <div class="btn-bg"></div>
         <span class="btn-label">Deer Isle</span>
         <span class="btn-sub">Deer Isle &middot; Hardcore PvE</span>

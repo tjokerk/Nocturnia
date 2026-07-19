@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOCTURNIA | Cherno | Under Construction</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    background: #000;
+    font-family: 'Orbitron', sans-serif;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.07) 2px,
+      rgba(0,0,0,0.07) 4px
+    );
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  .wrap {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .back-link {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    z-index: 3;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 0.5rem 1rem;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .back-link:hover { color: #fff; border-color: rgba(255,255,255,0.6); }
+
+  .server-name {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: clamp(0.65rem, 1.5vw, 0.8rem);
+    letter-spacing: 0.35em;
+    color: #ffb020;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    opacity: 0.8;
+  }
+
+  .status {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: clamp(1.8rem, 6vw, 3.2rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 0 0 25px rgba(255,176,32,0.6);
+    margin-bottom: 0.75rem;
+  }
+
+  .note {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: clamp(0.65rem, 1.3vw, 0.8rem);
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.45);
+    text-transform: uppercase;
+    max-width: 480px;
+    line-height: 1.8;
+  }
+</style>
+</head>
+<body>
+
+<a href="dayz.html" class="back-link">&larr; Back</a>
+
+<div class="wrap">
+  <p class="server-name">Cherno &middot; Starter Server</p>
+  <p class="status">Under Construction</p>
+  <p class="note">The easier entry point into Nocturnia — vanilla Chernarus with Expansion AI, quests, DNA rooms, paratroopers, and airdrops. Full page coming soon.</p>
+</div>
+
+<!-- SURVIVOR PROTOCOL BADGE -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+.dayz-badge-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  background: rgba(10, 11, 12, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 2px solid #ff2a2a;
+  box-shadow: 
+    0 6px 18px rgba(0, 0, 0, 0.85),
+    inset 0 0 10px rgba(0, 0, 0, 0.6);
+  font-family: 'Share Tech Mono', monospace;
+  overflow: hidden;
+  width: 150px;
+  margin: 24px auto;
+  border-radius: 4px;
+}
+.hud-scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  ), linear-gradient(
+    90deg, 
+    rgba(255, 0, 0, 0.03), 
+    rgba(0, 255, 0, 0.01), 
+    rgba(0, 0, 255, 0.03)
+  );
+  background-size: 100% 4px, 6px 100%;
+  z-index: 1;
+}
+.tactical-visor {
+  position: relative;
+  width: 70px;
+  height: 3px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 1px;
+  margin-bottom: 6px;
+  overflow: hidden;
+  z-index: 2;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.laser-scanner {
+  position: absolute;
+  top: 0;
+  width: 18px;
+  height: 100%;
+  background: linear-gradient(to right, transparent, #ff0000, transparent);
+  box-shadow: 
+    0 0 6px #ff0000,
+    0 0 12px rgba(255, 0, 0, 0.7);
+  animation: cylon-scan 0.9s infinite ease-in-out alternate;
+}
+.badge-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+.hud-label {
+  font-size: 6px;
+  color: #ff2a2a;
+  letter-spacing: 0.12em;
+  opacity: 0.85;
+}
+.designed-by {
+  font-size: 6.5px;
+  color: #a0a5ad;
+  letter-spacing: 0.1em;
+}
+.creator-name {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  color: #ffffff;
+  text-shadow: 
+    0 0 8px rgba(255, 255, 255, 0.1),
+    1.5px 1.5px 0px rgba(0, 0, 0, 0.9);
+}
+@keyframes cylon-scan {
+  0% { left: -25%; }
+  100% { left: 100%; }
+}
+</style>
+<div class="dayz-badge-container">
+  <div class="hud-scanlines"></div>
+  <div class="tactical-visor">
+    <div class="laser-scanner"></div>
+  </div>
+  <div class="badge-content">
+    <span class="hud-label">SURVIVOR PROTOCOL /</span>
+    <span class="designed-by">DESIGNED & BUILT BY</span>
+    <span class="creator-name">TJOKERK</span>
+  </div>
+</div>
+
+</body>
+</html>
