@@ -139,6 +139,7 @@
   .hero-img-layer {
     position: absolute;
     inset: 0;
+    background-image: url('server_extras/Cherno/ChernoWoods.jpeg');
     background-size: cover;
     background-position: center top;
     opacity: 0.25;
@@ -1014,8 +1015,8 @@
   </div>
   <div class="status-bar-left">
     <span class="status-label">SYS STATUS</span>
-    <div class="status-online"><div class="status-dot"></div> LAUNCHING SOON</div>
-    <span class="status-ip">IP: Coming Soon</span>
+    <div class="status-online"><div class="status-dot"></div> SERVER ONLINE</div>
+    <span class="status-ip">66.148.51.243:2401</span>
   </div>
 </div>
 
@@ -1135,7 +1136,7 @@
           </div>
           <div class="server-detail">
             <span class="detail-label">IP</span>
-            <span class="detail-value">Coming Soon</span>
+            <span class="detail-value">66.148.51.243:2401</span>
           </div>
           <div class="server-detail">
             <span class="detail-label">SEARCH</span>
@@ -1147,6 +1148,9 @@
           </div>
         </div>
         <div class="server-actions">
+          <button class="copy-btn" onclick="copyText('66.148.51.243:2401', this)">
+            📋 Copy Server IP
+          </button>
           <button class="copy-btn" onclick="copyText('NOCTURNIA', this)">
             📋 Copy Search Term
           </button>
@@ -1226,7 +1230,7 @@
   <div class="footer-bottom">
     <div class="footer-copy">
       © 2026 NOCTURNIA. All rights reserved.<br>
-      Server IP: Coming Soon
+      Server IP: 66.148.51.243:2401
     </div>
     <p class="footer-disclaimer">
       This website and NOCTURNIA are unrelated to, not sponsored by, and not endorsed by Bohemia Interactive a.s. DayZ® and Bohemia Interactive® are trademarks of Bohemia Interactive a.s.
