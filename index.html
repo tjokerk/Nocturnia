@@ -15,9 +15,9 @@
 
   html, body {
     height: 100%;
-    background: #0c0c0c;
+    background: #e8e8e8;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    color: #f0f0f0;
+    color: #1a1a1a;
     line-height: 1.5;
   }
 
@@ -28,8 +28,8 @@
     left: 0;
     right: 0;
     height: 64px;
-    background: rgba(12, 12, 12, 0.92);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.92);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -42,11 +42,11 @@
     font-weight: 600;
     font-size: 1.05rem;
     letter-spacing: 0.02em;
-    color: #fff;
+    color: #1a1a1a;
   }
 
   .brand span {
-    color: #e03e3e;
+    color: #d03030;
   }
 
   .nav {
@@ -57,13 +57,13 @@
   .nav a {
     font-size: 0.85rem;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.7);
+    color: #444;
     text-decoration: none;
     transition: color 0.2s ease;
   }
 
   .nav a:hover {
-    color: #fff;
+    color: #d03030;
   }
 
   /* ========== EVENT ALERT ========== */
@@ -72,16 +72,17 @@
     top: 80px;
     right: 2.5rem;
     z-index: 900;
-    background: rgba(28, 28, 28, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 6px;
     padding: 0.6rem 1.1rem;
     font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.75);
+    color: #333;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   }
 
   .event-alert strong {
-    color: #e03e3e;
+    color: #d03030;
     font-weight: 600;
     margin-right: 0.35rem;
   }
@@ -92,7 +93,7 @@
     width: 100%;
     height: 68vh;
     min-height: 460px;
-    background: #0c0c0c url('server_extras/cherno/greenmountain.jpg') center center / cover no-repeat;
+    background: #e8e8e8 url('server_extras/cherno/greenmountain.jpg') center center / cover no-repeat;
     display: flex;
     align-items: center;
   }
@@ -103,9 +104,9 @@
     inset: 0;
     background: linear-gradient(
       to right,
-      rgba(12, 12, 12, 0.78) 0%,
-      rgba(12, 12, 12, 0.4) 50%,
-      rgba(12, 12, 12, 0.15) 100%
+      rgba(232, 232, 232, 0.85) 0%,
+      rgba(232, 232, 232, 0.5) 45%,
+      rgba(232, 232, 232, 0.2) 100%
     );
   }
 
@@ -120,13 +121,13 @@
     font-weight: 700;
     font-size: clamp(2.6rem, 5.2vw, 3.6rem);
     line-height: 1.1;
-    color: #fff;
+    color: #1a1a1a;
     letter-spacing: -0.02em;
   }
 
   /* ========== GAME CARDS ========== */
   .games-section {
-    background: #111;
+    background: #f2f2f2;
     padding: 3.2rem 2rem 1.8rem;
     text-align: center;
   }
@@ -134,7 +135,7 @@
   .games-label {
     font-size: 0.8rem;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.45);
+    color: #666;
     margin-bottom: 1.8rem;
     letter-spacing: 0.04em;
   }
@@ -155,19 +156,20 @@
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    background: #1a1a1a;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 10px;
     transition: all 0.25s ease;
-    color: rgba(255, 255, 255, 0.7);
+    color: #333;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
   }
 
   .game-card:hover {
-    background: #222;
-    border-color: rgba(224, 62, 62, 0.45);
-    color: #fff;
+    background: #fff;
+    border-color: #d03030;
+    color: #d03030;
     transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   }
 
   .game-card .card-label {
@@ -178,7 +180,7 @@
 
   /* ========== DISCORD BAR ========== */
   .discord-bar {
-    background: #111;
+    background: #f2f2f2;
     padding: 0.5rem 2rem 2.8rem;
     text-align: center;
   }
@@ -189,21 +191,21 @@
     font-weight: 500;
     color: #fff;
     text-decoration: none;
-    background: #e03e3e;
+    background: #d03030;
     padding: 0.75rem 2rem;
     border-radius: 8px;
     transition: background 0.2s ease, transform 0.2s ease;
   }
 
   .discord-btn:hover {
-    background: #c93434;
+    background: #b82828;
     transform: translateY(-1px);
   }
 
   /* ========== FOOTER ========== */
   .footer {
-    background: #0a0a0a;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    background: #e0e0e0;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
     padding: 2rem 2rem 1.6rem;
     position: relative;
   }
@@ -219,19 +221,19 @@
   .footer-nav a {
     font-size: 0.8rem;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.45);
+    color: #555;
     text-decoration: none;
     transition: color 0.2s ease;
   }
 
   .footer-nav a:hover {
-    color: #fff;
+    color: #d03030;
   }
 
   .copyright {
     text-align: center;
     font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.35);
+    color: #666;
   }
 
   /* Survivor Protocol Badge */
@@ -244,25 +246,21 @@
     align-items: center;
     justify-content: center;
     padding: 8px 14px;
-    background: rgba(10, 11, 12, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-top: 2px solid #e03e3e;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-top: 2px solid #d03030;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
     font-family: 'Inter', system-ui, sans-serif;
     overflow: hidden;
     width: 148px;
     border-radius: 6px;
   }
 
-  .hud-scanlines {
-    display: none; /* removed for softer look */
-  }
-
   .tactical-visor {
     position: relative;
     width: 64px;
     height: 2px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.1);
     border-radius: 1px;
     margin-bottom: 6px;
     overflow: hidden;
@@ -273,7 +271,7 @@
     top: 0;
     width: 16px;
     height: 100%;
-    background: linear-gradient(to right, transparent, #e03e3e, transparent);
+    background: linear-gradient(to right, transparent, #d03030, transparent);
     animation: scan 1.1s infinite ease-in-out alternate;
   }
 
@@ -286,14 +284,14 @@
 
   .hud-label {
     font-size: 6px;
-    color: #e03e3e;
+    color: #d03030;
     letter-spacing: 0.1em;
     opacity: 0.9;
   }
 
   .designed-by {
     font-size: 6.5px;
-    color: #999;
+    color: #777;
     letter-spacing: 0.06em;
   }
 
@@ -301,7 +299,7 @@
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.08em;
-    color: #fff;
+    color: #1a1a1a;
   }
 
   @keyframes scan {
@@ -352,8 +350,8 @@
     <a href="dayz.html">Servers</a>
     <a href="#">Events</a>
     <a href="#">Rules</a>
-    <a href="https://discord.gg/" target="_blank">Discord</a>
-    <a href="#">Donate</a>
+    <a href="https://discord.gg/nb7NmM49Y" target="_blank">Discord</a>
+    <a href="https://paypal.me/NocturniaHardcore?country.x=CA&locale.x=en_US" target="_blank">Donate</a>
   </nav>
 </header>
 
@@ -383,7 +381,7 @@
 </section>
 
 <div class="discord-bar">
-  <a href="https://discord.gg/" target="_blank" class="discord-btn">Join Our Discord</a>
+  <a href="https://discord.gg/nb7NmM49Y" target="_blank" class="discord-btn">Join Our Discord</a>
 </div>
 
 <footer class="footer">
@@ -392,8 +390,8 @@
     <a href="dayz.html">Servers</a>
     <a href="#">Events</a>
     <a href="#">Rules</a>
-    <a href="https://discord.gg/" target="_blank">Discord</a>
-    <a href="#">Donate</a>
+    <a href="https://discord.gg/nb7NmM49Y" target="_blank">Discord</a>
+    <a href="https://paypal.me/NocturniaHardcore?country.x=CA&locale.x=en_US" target="_blank">Donate</a>
   </nav>
 
   <div class="copyright">
