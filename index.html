@@ -15,9 +15,9 @@
 
   html, body {
     height: 100%;
-    background: #e8e8e8;
+    background: #c5d6a3;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    color: #1a1a1a;
+    color: #2a2a2a;
     line-height: 1.5;
   }
 
@@ -28,25 +28,20 @@
     left: 0;
     right: 0;
     height: 64px;
-    background: rgba(255, 255, 255, 0.92);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    background: #c9a227;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 2.5rem;
     z-index: 1000;
-    backdrop-filter: blur(10px);
   }
 
   .brand {
-    font-weight: 600;
-    font-size: 1.05rem;
+    font-weight: 700;
+    font-size: 1.1rem;
     letter-spacing: 0.02em;
     color: #1a1a1a;
-  }
-
-  .brand span {
-    color: #d03030;
   }
 
   .nav {
@@ -55,15 +50,15 @@
   }
 
   .nav a {
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: #444;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #1a1a1a;
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: opacity 0.2s ease;
   }
 
   .nav a:hover {
-    color: #d03030;
+    opacity: 0.75;
   }
 
   /* ========== EVENT ALERT ========== */
@@ -72,17 +67,17 @@
     top: 80px;
     right: 2.5rem;
     z-index: 900;
-    background: #fff;
+    background: #faf9f5;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 6px;
     padding: 0.6rem 1.1rem;
     font-size: 0.8rem;
     color: #333;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   }
 
   .event-alert strong {
-    color: #d03030;
+    color: #c9a227;
     font-weight: 600;
     margin-right: 0.35rem;
   }
@@ -93,9 +88,23 @@
     width: 100%;
     height: 68vh;
     min-height: 460px;
-    background: #e8e8e8 url('server_extras/cherno/greenmountain.jpg') center center / cover no-repeat;
+    overflow: hidden;
     display: flex;
     align-items: center;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 1.8s ease-in-out;
+  }
+
+  .hero-bg.active {
+    opacity: 1;
   }
 
   .hero::after {
@@ -104,22 +113,23 @@
     inset: 0;
     background: linear-gradient(
       to right,
-      rgba(232, 232, 232, 0.85) 0%,
-      rgba(232, 232, 232, 0.5) 45%,
-      rgba(232, 232, 232, 0.2) 100%
+      rgba(197, 214, 163, 0.88) 0%,
+      rgba(197, 214, 163, 0.55) 45%,
+      rgba(197, 214, 163, 0.25) 100%
     );
+    z-index: 1;
   }
 
   .hero-content {
     position: relative;
     z-index: 2;
     padding-left: 6.5vw;
-    max-width: 480px;
+    max-width: 520px;
   }
 
   .hero-title {
     font-weight: 700;
-    font-size: clamp(2.6rem, 5.2vw, 3.6rem);
+    font-size: clamp(2.8rem, 5.5vw, 3.8rem);
     line-height: 1.1;
     color: #1a1a1a;
     letter-spacing: -0.02em;
@@ -127,17 +137,17 @@
 
   /* ========== GAME CARDS ========== */
   .games-section {
-    background: #f2f2f2;
+    background: #d4e0b8;
     padding: 3.2rem 2rem 1.8rem;
     text-align: center;
   }
 
   .games-label {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 500;
-    color: #666;
+    color: #444;
     margin-bottom: 1.8rem;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.03em;
   }
 
   .game-cards {
@@ -156,55 +166,54 @@
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    background: #fff;
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: #c9a227;
+    border: 1px solid rgba(0, 0, 0, 0.12);
     border-radius: 10px;
     transition: all 0.25s ease;
-    color: #333;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    color: #1a1a1a;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
   }
 
   .game-card:hover {
-    background: #fff;
-    border-color: #d03030;
-    color: #d03030;
+    background: #b08e1f;
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
   }
 
   .game-card .card-label {
-    font-weight: 600;
-    font-size: 1.15rem;
-    letter-spacing: 0.01em;
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 0.02em;
   }
 
   /* ========== DISCORD BAR ========== */
   .discord-bar {
-    background: #f2f2f2;
+    background: #d4e0b8;
     padding: 0.5rem 2rem 2.8rem;
     text-align: center;
   }
 
   .discord-btn {
     display: inline-block;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #1a1a1a;
     text-decoration: none;
-    background: #d03030;
-    padding: 0.75rem 2rem;
+    background: #c9a227;
+    padding: 0.8rem 2.2rem;
     border-radius: 8px;
     transition: background 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   }
 
   .discord-btn:hover {
-    background: #b82828;
+    background: #b08e1f;
     transform: translateY(-1px);
   }
 
   /* ========== FOOTER ========== */
   .footer {
-    background: #e0e0e0;
+    background: #b8c992;
     border-top: 1px solid rgba(0, 0, 0, 0.08);
     padding: 2rem 2rem 1.6rem;
     position: relative;
@@ -219,21 +228,21 @@
   }
 
   .footer-nav a {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 500;
-    color: #555;
+    color: #333;
     text-decoration: none;
     transition: color 0.2s ease;
   }
 
   .footer-nav a:hover {
-    color: #d03030;
+    color: #c9a227;
   }
 
   .copyright {
     text-align: center;
     font-size: 0.75rem;
-    color: #666;
+    color: #444;
   }
 
   /* Survivor Protocol Badge */
@@ -246,9 +255,9 @@
     align-items: center;
     justify-content: center;
     padding: 8px 14px;
-    background: #fff;
+    background: #faf9f5;
     border: 1px solid rgba(0, 0, 0, 0.1);
-    border-top: 2px solid #d03030;
+    border-top: 2px solid #c9a227;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
     font-family: 'Inter', system-ui, sans-serif;
     overflow: hidden;
@@ -260,7 +269,7 @@
     position: relative;
     width: 64px;
     height: 2px;
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.12);
     border-radius: 1px;
     margin-bottom: 6px;
     overflow: hidden;
@@ -271,7 +280,7 @@
     top: 0;
     width: 16px;
     height: 100%;
-    background: linear-gradient(to right, transparent, #d03030, transparent);
+    background: linear-gradient(to right, transparent, #c9a227, transparent);
     animation: scan 1.1s infinite ease-in-out alternate;
   }
 
@@ -284,14 +293,14 @@
 
   .hud-label {
     font-size: 6px;
-    color: #d03030;
+    color: #c9a227;
     letter-spacing: 0.1em;
     opacity: 0.9;
   }
 
   .designed-by {
     font-size: 6.5px;
-    color: #777;
+    color: #666;
     letter-spacing: 0.06em;
   }
 
@@ -314,13 +323,13 @@
       height: 56px;
     }
     .brand {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
     }
     .nav {
-      gap: 1.1rem;
+      gap: 1.2rem;
     }
     .nav a {
-      font-size: 0.75rem;
+      font-size: 0.8rem;
     }
     .event-alert {
       top: 68px;
@@ -344,12 +353,11 @@
 <body>
 
 <header class="header">
-  <div class="brand">Nocturnia <span>Gaming</span> Network</div>
+  <div class="brand">Nocturnia Gaming Network</div>
   <nav class="nav">
     <a href="index.html">Home</a>
     <a href="dayz.html">Servers</a>
     <a href="#">Events</a>
-    <a href="#">Rules</a>
     <a href="https://discord.gg/nb7NmM49Y" target="_blank">Discord</a>
     <a href="https://paypal.me/NocturniaHardcore?country.x=CA&locale.x=en_US" target="_blank">Donate</a>
   </nav>
@@ -360,8 +368,19 @@
 </div>
 
 <section class="hero">
+  <div class="hero-bg active" style="background-image: url('server_extras/cherno/greenmountain.jpg');"></div>
+  <div class="hero-bg" style="background-image: url('server_extras/cherno/CASTLE.jpg');"></div>
+  <div class="hero-bg" style="background-image: url('server_extras/cherno/ChernoWoods.jpeg');"></div>
+  <div class="hero-bg" style="background-image: url('server_extras/cherno/NWAF.jpg');"></div>
+  <div class="hero-bg" style="background-image: url('server_extras/cherno/OILRIG.jpg');"></div>
+  <div class="hero-bg" style="background-image: url('server_extras/cherno/PAVOLO.jpg');"></div>
+  <div class="hero-bg" style="background-image: url('server_extras/cherno/PRISON.jpg');"></div>
+  <div class="hero-bg" style="background-image: url('server_extras/cherno/RIFTY.jpg');"></div>
+  <div class="hero-bg" style="background-image: url('server_extras/cherno/SKALISTY.jpg');"></div>
+  <div class="hero-bg" style="background-image: url('server_extras/cherno/TISY.jpg');"></div>
+
   <div class="hero-content">
-    <h1 class="hero-title">Nocturnia<br>Servers</h1>
+    <h1 class="hero-title">Nocturnia<br>Gaming</h1>
   </div>
 </section>
 
@@ -389,7 +408,6 @@
     <a href="index.html">Home</a>
     <a href="dayz.html">Servers</a>
     <a href="#">Events</a>
-    <a href="#">Rules</a>
     <a href="https://discord.gg/nb7NmM49Y" target="_blank">Discord</a>
     <a href="https://paypal.me/NocturniaHardcore?country.x=CA&locale.x=en_US" target="_blank">Donate</a>
   </nav>
@@ -409,6 +427,17 @@
     </div>
   </div>
 </footer>
+
+<script>
+  const backgrounds = document.querySelectorAll('.hero-bg');
+  let current = 0;
+
+  setInterval(() => {
+    backgrounds[current].classList.remove('active');
+    current = (current + 1) % backgrounds.length;
+    backgrounds[current].classList.add('active');
+  }, 20000);
+</script>
 
 </body>
 </html>
