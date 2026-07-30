@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nocturnia Gaming Network</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after {
     box-sizing: border-box;
@@ -14,13 +14,15 @@
   }
 
   :root {
-    --bg: #f4f1eb;
-    --surface: #ffffff;
-    --text: #1c1c1c;
-    --text-muted: #5c5c5c;
-    --accent: #0f766e;
-    --accent-hover: #0d9488;
-    --border: rgba(0,0,0,0.08);
+    --bg: #0c0c0c;
+    --surface: #161616;
+    --text: #f2f2f2;
+    --text-muted: #a0a0a0;
+    --accent: #dc2626;
+    --accent-hover: #ef4444;
+    --gold: #d4a017;
+    --gold-hover: #e8b923;
+    --border: rgba(255,255,255,0.08);
   }
 
   html, body {
@@ -38,8 +40,8 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 68px;
-    background: rgba(244, 241, 235, 0.92);
+    height: 72px;
+    background: rgba(12, 12, 12, 0.92);
     border-bottom: 1px solid var(--border);
     display: flex;
     align-items: center;
@@ -50,9 +52,10 @@
   }
 
   .brand {
+    font-family: 'Cinzel', serif;
     font-weight: 700;
-    font-size: 1.15rem;
-    letter-spacing: -0.02em;
+    font-size: 1.45rem;
+    letter-spacing: 0.04em;
     color: var(--text);
   }
 
@@ -68,19 +71,19 @@
   .nav a {
     font-size: 0.9rem;
     font-weight: 500;
-    color: var(--text-muted);
+    color: var(--gold);
     text-decoration: none;
     transition: color 0.2s ease;
   }
 
   .nav a:hover {
-    color: var(--accent);
+    color: var(--gold-hover);
   }
 
   /* ========== EVENT ALERT ========== */
   .event-alert {
     position: fixed;
-    top: 84px;
+    top: 88px;
     right: 3rem;
     z-index: 900;
     background: var(--surface);
@@ -89,7 +92,7 @@
     padding: 0.65rem 1.15rem;
     font-size: 0.8rem;
     color: var(--text-muted);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
   }
 
   .event-alert strong {
@@ -129,9 +132,9 @@
     inset: 0;
     background: linear-gradient(
       105deg,
-      rgba(244, 241, 235, 0.92) 0%,
-      rgba(244, 241, 235, 0.7) 38%,
-      rgba(244, 241, 235, 0.25) 100%
+      rgba(12, 12, 12, 0.58) 0%,
+      rgba(12, 12, 12, 0.32) 40%,
+      rgba(12, 12, 12, 0.12) 100%
     );
     z-index: 1;
   }
@@ -140,23 +143,24 @@
     position: relative;
     z-index: 2;
     padding-left: 7vw;
-    max-width: 560px;
+    max-width: 600px;
   }
 
   .hero-title {
-    font-weight: 700;
-    font-size: clamp(3rem, 6vw, 4.2rem);
+    font-family: 'Cinzel', serif;
+    font-weight: 800;
+    font-size: clamp(3.4rem, 7vw, 5rem);
     line-height: 1.05;
-    color: var(--text);
-    letter-spacing: -0.03em;
-    margin-bottom: 0.6rem;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    margin-bottom: 0.7rem;
   }
 
   .hero-subtitle {
     font-size: 1.15rem;
     font-weight: 400;
     color: var(--text-muted);
-    max-width: 380px;
+    max-width: 400px;
   }
 
   /* ========== GAME CARDS ========== */
@@ -171,7 +175,7 @@
     font-weight: 500;
     color: var(--text-muted);
     margin-bottom: 2rem;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
   }
 
@@ -197,25 +201,26 @@
     border-radius: 14px;
     transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
     color: var(--text);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
   }
 
   .game-card:hover {
     transform: translateY(-6px);
     border-color: var(--accent);
-    box-shadow: 0 16px 32px rgba(15, 118, 110, 0.12);
+    box-shadow: 0 16px 32px rgba(220, 38, 38, 0.18);
   }
 
   .game-card .card-label {
+    font-family: 'Cinzel', serif;
     font-weight: 700;
-    font-size: 1.25rem;
-    letter-spacing: -0.01em;
+    font-size: 1.3rem;
+    letter-spacing: 0.02em;
+    color: var(--accent);
   }
 
   .game-card .card-sub {
     font-size: 0.8rem;
-    color: var(--text-muted);
-    margin-top: 0.25rem;
+    color: var(--gold);
+    margin-top: 0.3rem;
     font-weight: 400;
   }
 
@@ -238,18 +243,18 @@
     padding: 0.9rem 2.4rem;
     border-radius: 10px;
     transition: all 0.25s ease;
-    box-shadow: 0 4px 14px rgba(15, 118, 110, 0.25);
+    box-shadow: 0 4px 18px rgba(220, 38, 38, 0.3);
   }
 
   .discord-btn:hover {
     background: var(--accent-hover);
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(15, 118, 110, 0.3);
+    box-shadow: 0 8px 24px rgba(220, 38, 38, 0.35);
   }
 
   /* ========== FOOTER ========== */
   .footer {
-    background: #eae6df;
+    background: #111;
     border-top: 1px solid var(--border);
     padding: 2.5rem 2rem 2rem;
     position: relative;
@@ -266,13 +271,13 @@
   .footer-nav a {
     font-size: 0.85rem;
     font-weight: 500;
-    color: var(--text-muted);
+    color: var(--gold);
     text-decoration: none;
     transition: color 0.2s ease;
   }
 
   .footer-nav a:hover {
-    color: var(--accent);
+    color: var(--gold-hover);
   }
 
   .copyright {
@@ -291,10 +296,10 @@
     align-items: center;
     justify-content: center;
     padding: 9px 15px;
-    background: var(--surface);
+    background: #161616;
     border: 1px solid var(--border);
     border-top: 2px solid var(--accent);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
     overflow: hidden;
     width: 152px;
     border-radius: 8px;
@@ -304,7 +309,7 @@
     position: relative;
     width: 66px;
     height: 2px;
-    background: rgba(0,0,0,0.1);
+    background: rgba(255,255,255,0.1);
     border-radius: 1px;
     margin-bottom: 6px;
     overflow: hidden;
@@ -355,10 +360,10 @@
   @media (max-width: 768px) {
     .header {
       padding: 0 1.25rem;
-      height: 60px;
+      height: 62px;
     }
     .brand {
-      font-size: 1rem;
+      font-size: 1.15rem;
     }
     .nav {
       gap: 1.15rem;
@@ -367,7 +372,7 @@
       font-size: 0.8rem;
     }
     .event-alert {
-      top: 72px;
+      top: 74px;
       right: 1.25rem;
       font-size: 0.75rem;
     }
