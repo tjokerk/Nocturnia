@@ -3,279 +3,414 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NOCTURNIA</title>
+<title>Nocturnia Gaming Network</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
   html, body {
     height: 100%;
-    overflow: hidden;
-    background: #000;
-    font-family: 'Orbitron', sans-serif;
+    background: #0c0c0c;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #f0f0f0;
+    line-height: 1.5;
   }
 
-  .splash {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
+  /* ========== HEADER ========== */
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: rgba(12, 12, 12, 0.92);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: flex-end;
-    padding-bottom: 6vh;
+    justify-content: space-between;
+    padding: 0 2.5rem;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
   }
 
-  .bg {
-    position: absolute;
-    inset: 0;
-    background-image: url('server_extras/dayz-images/Screenshot_2026-05-22_230336.png');
-    background-size: contain;
-    background-position: center center;
-    background-repeat: no-repeat;
-    z-index: 0;
+  .brand {
+    font-weight: 600;
+    font-size: 1.05rem;
+    letter-spacing: 0.02em;
+    color: #fff;
   }
 
-  .bg::after {
+  .brand span {
+    color: #e03e3e;
+  }
+
+  .nav {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .nav a {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .nav a:hover {
+    color: #fff;
+  }
+
+  /* ========== EVENT ALERT ========== */
+  .event-alert {
+    position: fixed;
+    top: 80px;
+    right: 2.5rem;
+    z-index: 900;
+    background: rgba(28, 28, 28, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 0.6rem 1.1rem;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  .event-alert strong {
+    color: #e03e3e;
+    font-weight: 600;
+    margin-right: 0.35rem;
+  }
+
+  /* ========== HERO ========== */
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 68vh;
+    min-height: 460px;
+    background: #0c0c0c url('server_extras/cherno/greenmountain.jpg') center center / cover no-repeat;
+    display: flex;
+    align-items: center;
+  }
+
+  .hero::after {
     content: '';
     position: absolute;
     inset: 0;
     background: linear-gradient(
-      to bottom,
-      rgba(0,0,0,0.1) 0%,
-      rgba(0,0,0,0.05) 40%,
-      rgba(0,0,0,0.55) 70%,
-      rgba(0,0,0,0.85) 100%
+      to right,
+      rgba(12, 12, 12, 0.78) 0%,
+      rgba(12, 12, 12, 0.4) 50%,
+      rgba(12, 12, 12, 0.15) 100%
     );
   }
 
-  /* scanlines */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(0,0,0,0.07) 2px,
-      rgba(0,0,0,0.07) 4px
-    );
-    pointer-events: none;
-    z-index: 9999;
-  }
-
-  .content {
+  .hero-content {
     position: relative;
     z-index: 2;
+    padding-left: 6.5vw;
+    max-width: 480px;
+  }
+
+  .hero-title {
+    font-weight: 700;
+    font-size: clamp(2.6rem, 5.2vw, 3.6rem);
+    line-height: 1.1;
+    color: #fff;
+    letter-spacing: -0.02em;
+  }
+
+  /* ========== GAME CARDS ========== */
+  .games-section {
+    background: #111;
+    padding: 3.2rem 2rem 1.8rem;
     text-align: center;
-    width: 100%;
-    padding: 0 2rem;
   }
 
-  .buttons {
+  .games-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.45);
+    margin-bottom: 1.8rem;
+    letter-spacing: 0.04em;
+  }
+
+  .game-cards {
     display: flex;
-    gap: 1.5rem;
     justify-content: center;
+    gap: 1.5rem;
     flex-wrap: wrap;
-    animation: fadeUp 0.8s 0.6s both;
+    max-width: 900px;
+    margin: 0 auto;
   }
 
-  .server-btn {
+  .game-card {
+    width: 230px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    transition: all 0.25s ease;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .game-card:hover {
+    background: #222;
+    border-color: rgba(224, 62, 62, 0.45);
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  }
+
+  .game-card .card-label {
+    font-weight: 600;
+    font-size: 1.15rem;
+    letter-spacing: 0.01em;
+  }
+
+  /* ========== DISCORD BAR ========== */
+  .discord-bar {
+    background: #111;
+    padding: 0.5rem 2rem 2.8rem;
+    text-align: center;
+  }
+
+  .discord-btn {
+    display: inline-block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #fff;
+    text-decoration: none;
+    background: #e03e3e;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .discord-btn:hover {
+    background: #c93434;
+    transform: translateY(-1px);
+  }
+
+  /* ========== FOOTER ========== */
+  .footer {
+    background: #0a0a0a;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 2rem 2rem 1.6rem;
     position: relative;
+  }
+
+  .footer-nav {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 1.4rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-nav a {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer-nav a:hover {
+    color: #fff;
+  }
+
+  .copyright {
+    text-align: center;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  /* Survivor Protocol Badge */
+  .dayz-badge-container {
+    position: absolute;
+    bottom: 1.4rem;
+    right: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: clamp(160px, 22vw, 240px);
-    height: clamp(70px, 10vw, 90px);
-    text-decoration: none;
+    padding: 8px 14px;
+    background: rgba(10, 11, 12, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 2px solid #e03e3e;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+    font-family: 'Inter', system-ui, sans-serif;
     overflow: hidden;
-    transition: transform 0.2s, box-shadow 0.2s;
+    width: 148px;
+    border-radius: 6px;
   }
 
-  .server-btn:hover {
-    transform: translateY(-3px);
+  .hud-scanlines {
+    display: none; /* removed for softer look */
   }
 
-  .server-btn .btn-bg {
+  .tactical-visor {
+    position: relative;
+    width: 64px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 1px;
+    margin-bottom: 6px;
+    overflow: hidden;
+  }
+
+  .laser-scanner {
     position: absolute;
-    inset: 0;
-    transition: opacity 0.2s;
+    top: 0;
+    width: 16px;
+    height: 100%;
+    background: linear-gradient(to right, transparent, #e03e3e, transparent);
+    animation: scan 1.1s infinite ease-in-out alternate;
   }
 
-  .server-btn .btn-label {
-    position: relative;
-    z-index: 1;
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 900;
-    font-size: clamp(1rem, 2.5vw, 1.3rem);
+  .badge-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+  }
+
+  .hud-label {
+    font-size: 6px;
+    color: #e03e3e;
+    letter-spacing: 0.1em;
+    opacity: 0.9;
+  }
+
+  .designed-by {
+    font-size: 6.5px;
+    color: #999;
+    letter-spacing: 0.06em;
+  }
+
+  .creator-name {
+    font-size: 11px;
+    font-weight: 700;
     letter-spacing: 0.08em;
-    text-transform: uppercase;
+    color: #fff;
   }
 
-  .server-btn .btn-sub {
-    position: relative;
-    z-index: 1;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: clamp(0.55rem, 1vw, 0.65rem);
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    margin-top: 0.2rem;
-    opacity: 0.7;
+  @keyframes scan {
+    0% { left: -30%; }
+    100% { left: 110%; }
   }
 
-  /* DayZ button — cold cyan */
-  .btn-dayz .btn-bg {
-    background: rgba(0, 180, 220, 0.12);
-    border: 1px solid rgba(0, 200, 255, 0.5);
-    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
-  }
-  .btn-dayz .btn-label { color: #00c8ff; text-shadow: 0 0 20px rgba(0,200,255,0.7); }
-  .btn-dayz .btn-sub { color: #00c8ff; }
-  .btn-dayz:hover .btn-bg { background: rgba(0, 180, 220, 0.25); box-shadow: 0 0 40px rgba(0,200,255,0.3) inset; }
-  .btn-dayz:hover { box-shadow: 0 0 30px rgba(0,200,255,0.4); }
-
-  /* HumanitZ button — blood red */
-  .btn-humanitz .btn-bg {
-    background: rgba(200, 30, 30, 0.12);
-    border: 1px solid rgba(220, 50, 50, 0.5);
-    clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
-  }
-  .btn-humanitz .btn-label { color: #ff4444; text-shadow: 0 0 20px rgba(255,50,50,0.7); }
-  .btn-humanitz .btn-sub { color: #ff4444; }
-  .btn-humanitz:hover .btn-bg { background: rgba(200, 30, 30, 0.25); box-shadow: 0 0 40px rgba(220,50,50,0.3) inset; }
-  .btn-humanitz:hover { box-shadow: 0 0 30px rgba(220,50,50,0.4); }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(18px); }
-    to   { opacity: 1; transform: translateY(0); }
+  /* Mobile */
+  @media (max-width: 768px) {
+    .header {
+      padding: 0 1.2rem;
+      height: 56px;
+    }
+    .brand {
+      font-size: 0.9rem;
+    }
+    .nav {
+      gap: 1.1rem;
+    }
+    .nav a {
+      font-size: 0.75rem;
+    }
+    .event-alert {
+      top: 68px;
+      right: 1.2rem;
+      font-size: 0.75rem;
+    }
+    .hero-content {
+      padding-left: 1.5rem;
+    }
+    .game-card {
+      width: 200px;
+      height: 90px;
+    }
+    .dayz-badge-container {
+      position: static;
+      margin: 1.8rem auto 0;
+    }
   }
 </style>
 </head>
 <body>
 
-<div class="splash">
-  <div class="bg"></div>
-  <div class="content">
-    <div class="buttons">
-      <a href="dayz.html" class="server-btn btn-dayz">
-        <div class="btn-bg"></div>
-        <span class="btn-label">DayZ</span>
-      </a>
-      <a href="other-games.html" class="server-btn btn-humanitz">
-        <div class="btn-bg"></div>
-        <span class="btn-label">Other Games</span>
-      </a>
-    </div>
-  </div>
+<header class="header">
+  <div class="brand">Nocturnia <span>Gaming</span> Network</div>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="dayz.html">Servers</a>
+    <a href="#">Events</a>
+    <a href="#">Rules</a>
+    <a href="https://discord.gg/" target="_blank">Discord</a>
+    <a href="#">Donate</a>
+  </nav>
+</header>
+
+<div class="event-alert">
+  <strong>EVENT ALERT</strong> Currently No Events!
 </div>
 
-<!-- SURVIVOR PROTOCOL BADGE -->
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-.dayz-badge-container {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 14px;
-  background: rgba(10, 11, 12, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-top: 2px solid #ff2a2a;
-  box-shadow: 
-    0 6px 18px rgba(0, 0, 0, 0.85),
-    inset 0 0 10px rgba(0, 0, 0, 0.6);
-  font-family: 'Share Tech Mono', monospace;
-  overflow: hidden;
-  width: 150px;
-  margin: 24px auto;
-  border-radius: 4px;
-}
-.hud-scanlines {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(
-    rgba(18, 16, 16, 0) 50%, 
-    rgba(0, 0, 0, 0.25) 50%
-  ), linear-gradient(
-    90deg, 
-    rgba(255, 0, 0, 0.03), 
-    rgba(0, 255, 0, 0.01), 
-    rgba(0, 0, 255, 0.03)
-  );
-  background-size: 100% 4px, 6px 100%;
-  z-index: 1;
-}
-.tactical-visor {
-  position: relative;
-  width: 70px;
-  height: 3px;
-  background: rgba(0, 0, 0, 0.8);
-  border-radius: 1px;
-  margin-bottom: 6px;
-  overflow: hidden;
-  z-index: 2;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-.laser-scanner {
-  position: absolute;
-  top: 0;
-  width: 18px;
-  height: 100%;
-  background: linear-gradient(to right, transparent, #ff0000, transparent);
-  box-shadow: 
-    0 0 6px #ff0000,
-    0 0 12px rgba(255, 0, 0, 0.7);
-  animation: cylon-scan 0.9s infinite ease-in-out alternate;
-}
-.badge-content {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1px;
-}
-.hud-label {
-  font-size: 6px;
-  color: #ff2a2a;
-  letter-spacing: 0.12em;
-  opacity: 0.85;
-}
-.designed-by {
-  font-size: 6.5px;
-  color: #a0a5ad;
-  letter-spacing: 0.1em;
-}
-.creator-name {
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: 0.12em;
-  color: #ffffff;
-  text-shadow: 
-    0 0 8px rgba(255, 255, 255, 0.1),
-    1.5px 1.5px 0px rgba(0, 0, 0, 0.9);
-}
-@keyframes cylon-scan {
-  0% { left: -25%; }
-  100% { left: 100%; }
-}
-</style>
-<div class="dayz-badge-container">
-  <div class="hud-scanlines"></div>
-  <div class="tactical-visor">
-    <div class="laser-scanner"></div>
+<section class="hero">
+  <div class="hero-content">
+    <h1 class="hero-title">Nocturnia<br>Servers</h1>
   </div>
-  <div class="badge-content">
-    <span class="hud-label">SURVIVOR PROTOCOL /</span>
-    <span class="designed-by">DESIGNED & BUILT BY</span>
-    <span class="creator-name">TJOKERK</span>
+</section>
+
+<section class="games-section">
+  <div class="games-label">Click a game to view servers</div>
+  <div class="game-cards">
+    <a href="dayz.html" class="game-card">
+      <span class="card-label">DayZ</span>
+    </a>
+    <a href="humanitz.html" class="game-card">
+      <span class="card-label">HumanitZ</span>
+    </a>
+    <a href="#" class="game-card">
+      <span class="card-label">V Rising</span>
+    </a>
   </div>
+</section>
+
+<div class="discord-bar">
+  <a href="https://discord.gg/" target="_blank" class="discord-btn">Join Our Discord</a>
 </div>
+
+<footer class="footer">
+  <nav class="footer-nav">
+    <a href="index.html">Home</a>
+    <a href="dayz.html">Servers</a>
+    <a href="#">Events</a>
+    <a href="#">Rules</a>
+    <a href="https://discord.gg/" target="_blank">Discord</a>
+    <a href="#">Donate</a>
+  </nav>
+
+  <div class="copyright">
+    Copyright © 2025 Nocturnia Gaming Network - All Rights Reserved.
+  </div>
+
+  <div class="dayz-badge-container">
+    <div class="tactical-visor">
+      <div class="laser-scanner"></div>
+    </div>
+    <div class="badge-content">
+      <span class="hud-label">SURVIVOR PROTOCOL /</span>
+      <span class="designed-by">DESIGNED & BUILT BY</span>
+      <span class="creator-name">TJOKERK</span>
+    </div>
+  </div>
+</footer>
 
 </body>
 </html>
