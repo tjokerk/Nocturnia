@@ -52,15 +52,15 @@
   }
 
   .brand {
-    font-family: 'Cinzel', serif;
-    font-weight: 700;
-    font-size: 1.45rem;
-    letter-spacing: 0.04em;
-    color: var(--text);
+    display: flex;
+    align-items: center;
+    height: 100%;
   }
 
-  .brand span {
-    color: var(--accent);
+  .brand img {
+    height: 48px;
+    width: auto;
+    display: block;
   }
 
   .nav {
@@ -264,7 +264,7 @@
     display: flex;
     justify-content: center;
     gap: 2.25rem;
-    margin-bottom: 1.6rem;
+    margin-bottom: 1.2rem;
     flex-wrap: wrap;
   }
 
@@ -278,6 +278,18 @@
 
   .footer-nav a:hover {
     color: var(--gold-hover);
+  }
+
+  .footer-logo {
+    text-align: center;
+    margin: 0 0 1.4rem;
+  }
+
+  .footer-logo img {
+    height: 42px;
+    width: auto;
+    display: inline-block;
+    opacity: 0.9;
   }
 
   .copyright {
@@ -362,8 +374,8 @@
       padding: 0 1.25rem;
       height: 62px;
     }
-    .brand {
-      font-size: 1.15rem;
+    .brand img {
+      height: 38px;
     }
     .nav {
       gap: 1.15rem;
@@ -396,7 +408,9 @@
 <body>
 
 <header class="header">
-  <div class="brand">Nocturnia <span>Gaming</span> Network</div>
+  <a href="index.html" class="brand">
+    <img src="server_extras/ngn/nsc.jpg" alt="Nocturnia Servers">
+  </a>
   <nav class="nav">
     <a href="index.html">Home</a>
     <a href="dayz.html">Servers</a>
@@ -458,6 +472,10 @@
     <a href="https://discord.gg/nb7NmM49Y" target="_blank">Discord</a>
     <a href="https://paypal.me/NocturniaHardcore?country.x=CA&locale.x=en_US" target="_blank">Donate</a>
   </nav>
+
+  <div class="footer-logo">
+    <img src="server_extras/ngn/ngn.jpg" alt="Nocturnia Gaming Network">
+  </div>
 
   <div class="copyright">
     Copyright © 2025 Nocturnia Gaming Network - All Rights Reserved.
