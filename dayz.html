@@ -3,336 +3,587 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NOCTURNIA | DayZ Servers</title>
+<title>Nocturnia Gaming Network | DayZ Servers</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  :root {
+    --bg: #0c0c0c;
+    --surface: #161616;
+    --text: #f2f2f2;
+    --text-muted: #a0a0a0;
+    --accent: #dc2626;
+    --accent-hover: #ef4444;
+    --gold: #d4a017;
+    --gold-hover: #e8b923;
+    --border: rgba(255,255,255,0.08);
+  }
 
   html, body {
-    height: 100%;
-    overflow: hidden;
-    background: #000;
-    font-family: 'Orbitron', sans-serif;
+    min-height: 100%;
+    background: var(--bg);
+    font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+    color: var(--text);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
   }
 
-  .splash {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
+  /* ========== HEADER ========== */
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 130px;
+    background: rgba(12, 12, 12, 0.92);
+    border-bottom: 1px solid var(--border);
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 4vh 0;
+    justify-content: space-between;
+    padding: 0 3rem;
+    z-index: 1000;
+    backdrop-filter: blur(12px);
   }
 
-  .bg {
-    position: absolute;
+  .brand {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  .brand img {
+    height: 115px;
+    width: auto;
+    display: block;
+  }
+
+  .nav {
+    display: flex;
+    gap: 2.25rem;
+  }
+
+  .nav a {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--gold);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .nav a:hover {
+    color: var(--gold-hover);
+  }
+
+  /* ========== MAIN ========== */
+  .main {
+    position: relative;
+    min-height: 100vh;
+    padding-top: 150px;
+    padding-bottom: 60px;
+  }
+
+  .bg-layer {
+    position: fixed;
     inset: 0;
-    background-image: url('server_extras/dayz-images/Screenshot_2026-05-22_230336.png');
-    background-size: contain;
-    background-position: center center;
-    background-repeat: no-repeat;
     z-index: 0;
   }
 
-  .bg::after {
-    content: '';
+  .bg-image {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+  }
+
+  .bg-image.active {
+    opacity: 1;
+  }
+
+  .bg-overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(
-      to bottom,
-      rgba(0,0,0,0.35) 0%,
-      rgba(0,0,0,0.3) 40%,
-      rgba(0,0,0,0.6) 70%,
-      rgba(0,0,0,0.9) 100%
+      105deg,
+      rgba(12, 12, 12, 0.85) 0%,
+      rgba(12, 12, 12, 0.7) 45%,
+      rgba(12, 12, 12, 0.5) 100%
     );
+    z-index: 1;
   }
 
-  /* scanlines */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(0,0,0,0.07) 2px,
-      rgba(0,0,0,0.07) 4px
-    );
-    pointer-events: none;
-    z-index: 9999;
-  }
-
-  .content {
+  .content-wrapper {
     position: relative;
     z-index: 2;
-    text-align: center;
-    width: 100%;
-    padding: 0 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem 3rem;
   }
 
-  .back-link {
-    position: fixed;
-    top: 2rem;
-    left: 2rem;
-    z-index: 3;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    color: rgba(255,255,255,0.5);
+  .page-title {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 2.3rem;
+    color: var(--accent);
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.03em;
+  }
+
+  .page-subtitle {
+    color: var(--text-muted);
+    margin-bottom: 1.8rem;
+    font-size: 1.05rem;
+  }
+
+  /* Top action links */
+  .top-actions {
+    display: flex;
+    gap: 1.2rem;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .top-actions a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--gold);
     text-decoration: none;
-    text-transform: uppercase;
-    border: 1px solid rgba(255,255,255,0.25);
-    padding: 0.5rem 1rem;
-    transition: color 0.2s, border-color 0.2s;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.7rem 1.3rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
   }
-  .back-link:hover { color: #fff; border-color: rgba(255,255,255,0.6); }
 
-  .buttons {
+  .top-actions a:hover {
+    border-color: var(--gold);
+    color: var(--gold-hover);
+    background: #1c1c1c;
+  }
+
+  /* Server rows */
+  .server-list {
     display: flex;
     flex-direction: column;
-    gap: 1.1rem;
+    gap: 1.3rem;
+    margin-bottom: 3rem;
+  }
+
+  .server-row {
+    display: flex;
     align-items: center;
-    animation: fadeUp 0.8s 0.2s both;
+    gap: 2rem;
+    background: rgba(22, 22, 22, 0.88);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.1rem 1.5rem;
+    transition: border-color 0.25s ease;
+  }
+
+  .server-row:hover {
+    border-color: rgba(220, 38, 38, 0.4);
   }
 
   .server-btn {
-    position: relative;
+    flex-shrink: 0;
+    width: 210px;
+    height: 70px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: clamp(220px, 30vw, 340px);
-    height: clamp(70px, 10vw, 90px);
     text-decoration: none;
-    overflow: hidden;
-    transition: transform 0.2s, box-shadow 0.2s;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    transition: all 0.25s ease;
   }
 
   .server-btn:hover {
-    transform: translateY(-3px);
-  }
-
-  .server-btn .btn-bg {
-    position: absolute;
-    inset: 0;
-    transition: opacity 0.2s;
+    border-color: var(--accent);
+    background: #1c1c1c;
   }
 
   .server-btn .btn-label {
-    position: relative;
-    z-index: 1;
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 900;
-    font-size: clamp(1rem, 2.5vw, 1.3rem);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--accent);
+    letter-spacing: 0.03em;
   }
 
   .server-btn .btn-sub {
+    font-size: 0.7rem;
+    color: var(--gold);
+    margin-top: 0.15rem;
+  }
+
+  .banner-wrap {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80px;
+  }
+
+  .banner-wrap iframe {
+    max-width: 100%;
+    border: 0;
+  }
+
+  /* Custom Under Construction banner */
+  .under-construction {
+    width: 500px;
+    max-width: 100%;
+    height: 80px;
+    background: #222;
+    border: 1px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #eee;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    border-radius: 4px;
+  }
+
+  .under-construction span {
+    color: var(--gold);
+  }
+
+  /* External links */
+  .external-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .external-links a {
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+
+  .external-links a:hover {
+    color: var(--gold-hover);
+  }
+
+  /* ========== FOOTER ========== */
+  .footer {
+    background: #111;
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 2rem 2rem;
     position: relative;
-    z-index: 1;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: clamp(0.55rem, 1vw, 0.65rem);
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    margin-top: 0.2rem;
-    opacity: 0.7;
+    z-index: 5;
   }
 
-  /* Cherno button — starter/noob amber, vanilla-leaning */
-  .btn-cherno .btn-bg {
-    background: rgba(120, 80, 10, 0.14);
-    border: 1px solid rgba(255, 176, 32, 0.5);
-    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  .footer-nav {
+    display: flex;
+    justify-content: center;
+    gap: 2.25rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
   }
-  .btn-cherno .btn-label { color: #ffb020; text-shadow: 0 0 20px rgba(255,176,32,0.7); }
-  .btn-cherno .btn-sub { color: #ffb020; }
-  .btn-cherno:hover .btn-bg { background: rgba(120, 80, 10, 0.28); box-shadow: 0 0 40px rgba(255,176,32,0.3) inset; }
-  .btn-cherno:hover { box-shadow: 0 0 30px rgba(255,176,32,0.4); }
 
-  /* Banov button — gunmetal black / diamond-plate red, ref: Banov_Gun.png */
-  .btn-banov .btn-bg {
-    background:
-      repeating-linear-gradient(135deg, transparent 0 10px, rgba(220,30,30,0.22) 10px 11px, transparent 11px 22px),
-      repeating-linear-gradient(45deg, transparent 0 10px, rgba(220,30,30,0.22) 10px 11px, transparent 11px 22px),
-      linear-gradient(160deg, rgba(35,35,35,0.7) 0%, rgba(10,10,10,0.75) 100%);
-    border: 1px solid rgba(220, 40, 40, 0.65);
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
-    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  .footer-nav a {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--gold);
+    text-decoration: none;
+    transition: color 0.2s ease;
   }
-  .btn-banov .btn-label { color: #ff2b2b; text-shadow: 0 0 20px rgba(255,40,40,0.8), 0 0 2px rgba(255,255,255,0.4); }
-  .btn-banov .btn-sub { color: #d8d8d8; }
-  .btn-banov:hover .btn-bg { box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08), 0 0 40px rgba(220,35,35,0.35) inset; }
-  .btn-banov:hover { box-shadow: 0 0 30px rgba(220,35,35,0.45); }
 
-  /* Deer Isle button — toxic bioluminescent green */
-  .btn-deerisle .btn-bg {
-    background: rgba(20, 100, 45, 0.12);
-    border: 1px solid rgba(45, 255, 126, 0.5);
-    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  .footer-nav a:hover {
+    color: var(--gold-hover);
   }
-  .btn-deerisle .btn-label { color: #2dff7e; text-shadow: 0 0 20px rgba(45,255,126,0.7); }
-  .btn-deerisle .btn-sub { color: #2dff7e; }
-  .btn-deerisle:hover .btn-bg { background: rgba(20, 100, 45, 0.25); box-shadow: 0 0 40px rgba(45,255,126,0.3) inset; }
-  .btn-deerisle:hover { box-shadow: 0 0 30px rgba(45,255,126,0.4); }
 
-  /* Namalsk button — cold cyan */
-  .btn-namalsk .btn-bg {
-    background: rgba(0, 180, 220, 0.12);
-    border: 1px solid rgba(0, 200, 255, 0.5);
-    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  .footer-logo {
+    text-align: center;
+    margin: 0 0 1.6rem;
   }
-  .btn-namalsk .btn-label { color: #00c8ff; text-shadow: 0 0 20px rgba(0,200,255,0.7); }
-  .btn-namalsk .btn-sub { color: #00c8ff; }
-  .btn-namalsk:hover .btn-bg { background: rgba(0, 180, 220, 0.25); box-shadow: 0 0 40px rgba(0,200,255,0.3) inset; }
-  .btn-namalsk:hover { box-shadow: 0 0 30px rgba(0,200,255,0.4); }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(18px); }
-    to   { opacity: 1; transform: translateY(0); }
+  .footer-logo img {
+    height: 105px;
+    width: auto;
+    display: inline-block;
+    opacity: 0.95;
+  }
+
+  .copyright {
+    text-align: center;
+    font-size: 0.78rem;
+    color: #777;
+  }
+
+  .dayz-badge-container {
+    position: absolute;
+    bottom: 1.6rem;
+    right: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 15px;
+    background: #161616;
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--accent);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    overflow: hidden;
+    width: 152px;
+    border-radius: 8px;
+  }
+
+  .tactical-visor {
+    position: relative;
+    width: 66px;
+    height: 2px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 1px;
+    margin-bottom: 6px;
+    overflow: hidden;
+  }
+
+  .laser-scanner {
+    position: absolute;
+    top: 0;
+    width: 16px;
+    height: 100%;
+    background: linear-gradient(to right, transparent, var(--accent), transparent);
+    animation: scan 1.2s infinite ease-in-out alternate;
+  }
+
+  .badge-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+  }
+
+  .hud-label {
+    font-size: 6px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    opacity: 0.9;
+  }
+
+  .designed-by {
+    font-size: 6.5px;
+    color: #888;
+    letter-spacing: 0.05em;
+  }
+
+  .creator-name {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--text);
+  }
+
+  @keyframes scan {
+    0% { left: -30%; }
+    100% { left: 110%; }
+  }
+
+  @media (max-width: 900px) {
+    .server-row {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .banner-wrap {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .header {
+      padding: 0 1.25rem;
+      height: 95px;
+    }
+    .brand img {
+      height: 78px;
+    }
+    .nav {
+      gap: 1.15rem;
+    }
+    .nav a {
+      font-size: 0.8rem;
+    }
+    .main {
+      padding-top: 115px;
+    }
+    .top-actions {
+      gap: 0.8rem;
+    }
+    .footer-logo img {
+      height: 80px;
+    }
+    .dayz-badge-container {
+      position: static;
+      margin: 2rem auto 0;
+    }
   }
 </style>
 </head>
 <body>
 
-<a href="index.html" class="back-link">&larr; Back</a>
+<header class="header">
+  <a href="index.html" class="brand">
+    <img src="server_extras/ngn/ns.jpg" alt="Nocturnia Servers">
+  </a>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="dayz.html">Servers</a>
+    <a href="#">Events</a>
+    <a href="https://discord.gg/nb7NmM49Y" target="_blank">Discord</a>
+    <a href="https://paypal.me/NocturniaHardcore?country.x=CA&locale.x=en_US" target="_blank">Donate</a>
+  </nav>
+</header>
 
-<div class="splash">
-  <div class="bg"></div>
-  <div class="content">
-    <div class="buttons">
-      <a href="cherno.html" class="server-btn btn-cherno">
-        <div class="btn-bg"></div>
-        <span class="btn-label">Cherno</span>
-        <span class="btn-sub">Starter Server &middot; Vanilla+</span>
-      </a>
-      <a href="banov.html" class="server-btn btn-banov">
-        <div class="btn-bg"></div>
-        <span class="btn-label">Banov</span>
-        <span class="btn-sub">Sci-Fi PvE &middot; Progression</span>
-      </a>
-      <a href="deerisle.html" class="server-btn btn-deerisle">
-        <div class="btn-bg"></div>
-        <span class="btn-label">Deer Isle</span>
-        <span class="btn-sub">Deer Isle &middot; Hardcore PvE</span>
-      </a>
-      <a href="namalsk-construction.html" class="server-btn btn-namalsk">
-        <div class="btn-bg"></div>
-        <span class="btn-label">Namalsk</span>
-        <span class="btn-sub">Namalsk &middot; Hardcore PvE</span>
-      </a>
+<div class="main">
+  <div class="bg-layer">
+    <div class="bg-image active" style="background-image: url('server_extras/dayz-images/01_DayZ_Struggling%20Survivor.png');"></div>
+    <div class="bg-image" style="background-image: url('server_extras/dayz-images/03_DayZ_Dynamic%20Contaminated%20Zones.png');"></div>
+    <div class="bg-image" style="background-image: url('server_extras/dayz-images/05_DayZ_Held%20up%20by%20Bandits.png');"></div>
+    <div class="bg-image" style="background-image: url('server_extras/dayz-images/07_DayZ_Battle%20at%20a%20Military%20Barrack.png');"></div>
+    <div class="bg-image" style="background-image: url('server_extras/dayz-images/09_DayZ_Looting%20a%20Helicrash.png');"></div>
+    <div class="bg-image" style="background-image: url('server_extras/dayz-images/10_DayZ_Chernarus%20Landscape.png');"></div>
+    <div class="bg-image" style="background-image: url('server_extras/dayz-images/12_DayZ_Yellow%20King%20with%20all%20firearms%20in%20DayZ.png');"></div>
+    <div class="bg-image" style="background-image: url('server_extras/dayz-images/16_DayZ_Night%20Sentry.png');"></div>
+    <div class="bg-image" style="background-image: url('server_extras/dayz-images/22_DayZ_Ambush.png');"></div>
+    <div class="bg-image" style="background-image: url('server_extras/dayz-images/DayZ_Livonia_4K.png');"></div>
+    <div class="bg-overlay"></div>
+  </div>
+
+  <div class="content-wrapper">
+    <h1 class="page-title">DayZ Servers</h1>
+    <p class="page-subtitle">Select a server to view details and join.</p>
+
+    <!-- Top action links -->
+    <div class="top-actions">
+      <a href="https://store.steampowered.com/app/221100/DayZ/" target="_blank">Get DayZ on Steam</a>
+      <a href="https://dayzsalauncher.com/#/home" target="_blank">Download DayZ SA Launcher</a>
+    </div>
+
+    <!-- Server list -->
+    <div class="server-list">
+
+      <!-- Cherno -->
+      <div class="server-row">
+        <a href="cherno.html" class="server-btn">
+          <span class="btn-label">Cherno</span>
+          <span class="btn-sub">Starter · Vanilla+</span>
+        </a>
+        <div class="banner-wrap">
+          <script type="application/javascript">window.addEventListener('message',function(e){if(e.data.uid&&e.data.type==='sizeUpdate'){var i = document.querySelector('iframe[name="'+e.data.uid+'"]');i.style.width = e.data.payload.width;i.style.height = e.data.payload.height;}});</script>
+          <iframe src="https://cdn.battlemetrics.com/b/horizontal500x80px/40059564.html?foreground=%23EEEEEE&background=%23222222&lines=%23333333&linkColor=%231185ec&chartColor=%23ff0700" frameborder="0" style="border:0" name="cffcg"></iframe>
+        </div>
+      </div>
+
+      <!-- Banov -->
+      <div class="server-row">
+        <a href="banov-construction.html" class="server-btn">
+          <span class="btn-label">Banov</span>
+          <span class="btn-sub">Sci-Fi PvE · Progression</span>
+        </a>
+        <div class="banner-wrap">
+          <script type="application/javascript">window.addEventListener('message',function(e){if(e.data.uid&&e.data.type==='sizeUpdate'){var i = document.querySelector('iframe[name="'+e.data.uid+'"]');i.style.width = e.data.payload.width;i.style.height = e.data.payload.height;}});</script>
+          <iframe src="https://cdn.battlemetrics.com/b/horizontal500x80px/39735478.html?foreground=%23EEEEEE&background=%23222222&lines=%23333333&linkColor=%231185ec&chartColor=%23FF0700" frameborder="0" style="border:0" name="ictno"></iframe>
+        </div>
+      </div>
+
+      <!-- Deer Isle -->
+      <div class="server-row">
+        <a href="deerisle-construction.html" class="server-btn">
+          <span class="btn-label">Deer Isle</span>
+          <span class="btn-sub">Hardcore PvE</span>
+        </a>
+        <div class="banner-wrap">
+          <script type="application/javascript">window.addEventListener('message',function(e){if(e.data.uid&&e.data.type==='sizeUpdate'){var i = document.querySelector('iframe[name="'+e.data.uid+'"]');i.style.width = e.data.payload.width;i.style.height = e.data.payload.height;}});</script>
+          <iframe src="https://cdn.battlemetrics.com/b/horizontal500x80px/40040143.html?foreground=%23EEEEEE&background=%23222222&lines=%23333333&linkColor=%231185ec&chartColor=%23FF0700" frameborder="0" style="border:0" name="rfbtp"></iframe>
+        </div>
+      </div>
+
+      <!-- Namalsk -->
+      <div class="server-row">
+        <a href="namalsk-construction.html" class="server-btn">
+          <span class="btn-label">Namalsk</span>
+          <span class="btn-sub">Hardcore PvE</span>
+        </a>
+        <div class="banner-wrap">
+          <div class="under-construction">
+            <span>Under Construction</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- External links -->
+    <div class="external-links">
+      <a href="https://dayz.com/" target="_blank">DayZ Official</a>
+      <a href="https://www.bohemia.net/en/games/dayz" target="_blank">Bohemia Interactive</a>
+      <a href="https://x.com/dayz" target="_blank">DayZ on X</a>
+      <a href="https://www.facebook.com/DayZ" target="_blank">DayZ on Facebook</a>
     </div>
   </div>
 </div>
 
-<!-- SURVIVOR PROTOCOL BADGE -->
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-.dayz-badge-container {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 14px;
-  background: rgba(10, 11, 12, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-top: 2px solid #ff2a2a;
-  box-shadow: 
-    0 6px 18px rgba(0, 0, 0, 0.85),
-    inset 0 0 10px rgba(0, 0, 0, 0.6);
-  font-family: 'Share Tech Mono', monospace;
-  overflow: hidden;
-  width: 150px;
-  margin: 24px auto;
-  border-radius: 4px;
-}
-.hud-scanlines {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(
-    rgba(18, 16, 16, 0) 50%, 
-    rgba(0, 0, 0, 0.25) 50%
-  ), linear-gradient(
-    90deg, 
-    rgba(255, 0, 0, 0.03), 
-    rgba(0, 255, 0, 0.01), 
-    rgba(0, 0, 255, 0.03)
-  );
-  background-size: 100% 4px, 6px 100%;
-  z-index: 1;
-}
-.tactical-visor {
-  position: relative;
-  width: 70px;
-  height: 3px;
-  background: rgba(0, 0, 0, 0.8);
-  border-radius: 1px;
-  margin-bottom: 6px;
-  overflow: hidden;
-  z-index: 2;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-.laser-scanner {
-  position: absolute;
-  top: 0;
-  width: 18px;
-  height: 100%;
-  background: linear-gradient(to right, transparent, #ff0000, transparent);
-  box-shadow: 
-    0 0 6px #ff0000,
-    0 0 12px rgba(255, 0, 0, 0.7);
-  animation: cylon-scan 0.9s infinite ease-in-out alternate;
-}
-.badge-content {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1px;
-}
-.hud-label {
-  font-size: 6px;
-  color: #ff2a2a;
-  letter-spacing: 0.12em;
-  opacity: 0.85;
-}
-.designed-by {
-  font-size: 6.5px;
-  color: #a0a5ad;
-  letter-spacing: 0.1em;
-}
-.creator-name {
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: 0.12em;
-  color: #ffffff;
-  text-shadow: 
-    0 0 8px rgba(255, 255, 255, 0.1),
-    1.5px 1.5px 0px rgba(0, 0, 0, 0.9);
-}
-@keyframes cylon-scan {
-  0% { left: -25%; }
-  100% { left: 100%; }
-}
-</style>
-<div class="dayz-badge-container">
-  <div class="hud-scanlines"></div>
-  <div class="tactical-visor">
-    <div class="laser-scanner"></div>
+<footer class="footer">
+  <nav class="footer-nav">
+    <a href="index.html">Home</a>
+    <a href="dayz.html">Servers</a>
+    <a href="#">Events</a>
+    <a href="https://discord.gg/nb7NmM49Y" target="_blank">Discord</a>
+    <a href="https://paypal.me/NocturniaHardcore?country.x=CA&locale.x=en_US" target="_blank">Donate</a>
+  </nav>
+
+  <div class="footer-logo">
+    <img src="server_extras/ngn/ngn.jpg" alt="Nocturnia Gaming Network">
   </div>
-  <div class="badge-content">
-    <span class="hud-label">SURVIVOR PROTOCOL /</span>
-    <span class="designed-by">DESIGNED & BUILT BY</span>
-    <span class="creator-name">TJOKERK</span>
+
+  <div class="copyright">
+    Copyright © 2025 Nocturnia Gaming Network - All Rights Reserved.
   </div>
-</div>
+
+  <div class="dayz-badge-container">
+    <div class="tactical-visor">
+      <div class="laser-scanner"></div>
+    </div>
+    <div class="badge-content">
+      <span class="hud-label">SURVIVOR PROTOCOL /</span>
+      <span class="designed-by">DESIGNED & BUILT BY</span>
+      <span class="creator-name">TJOKERK</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const backgrounds = document.querySelectorAll('.bg-image');
+  let current = 0;
+
+  setInterval(() => {
+    backgrounds[current].classList.remove('active');
+    current = (current + 1) % backgrounds.length;
+    backgrounds[current].classList.add('active');
+  }, 20000);
+</script>
 
 </body>
 </html>
