@@ -683,8 +683,7 @@
 
   .gallery-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1px;
     background: var(--border);
     border: 1px solid var(--border);
@@ -1132,7 +1131,43 @@
   <div class="container">
     <span class="section-tag">// MODLIST</span>
     <h2 class="section-title">Active Mods</h2>
-    <p class="section-lead">Full mod list is being finalized — check Discord for the current build while this section is completed.</p>
+    <p class="section-lead">Core frameworks, Expansion, quality-of-life tools, and the extras that keep Cherno feeling like vanilla with a pulse.</p>
+    <div class="mod-grid">
+      <span class="mod-tag">Community Framework</span>
+      <span class="mod-tag">Dabs Framework</span>
+      <span class="mod-tag">DayZ Editor Loader</span>
+      <span class="mod-tag">DayZ Expansion Bundle</span>
+      <span class="mod-tag">DayZ Expansion Licensed</span>
+      <span class="mod-tag">GameLabs</span>
+      <span class="mod-tag">VPP Admin Tools</span>
+      <span class="mod-tag">Survivor Animations</span>
+      <span class="mod-tag">Base Building Plus</span>
+      <span class="mod-tag">Better Vending Machines Expansion</span>
+      <span class="mod-tag highlight">SNAFU Weapons</span>
+      <span class="mod-tag">Forward Operating Gear</span>
+      <span class="mod-tag">Forward Operating Gear MoreSlots</span>
+      <span class="mod-tag">PC Bitcoin</span>
+      <span class="mod-tag">DNA Keycards</span>
+      <span class="mod-tag">Builder Items</span>
+      <span class="mod-tag">I'm Not Hot</span>
+      <span class="mod-tag">Search Inventory</span>
+      <span class="mod-tag">Quick Move Items by Category</span>
+      <span class="mod-tag">RZ HP Bar</span>
+      <span class="mod-tag">Restart Warner</span>
+      <span class="mod-tag">Red Falcon Flight System Helis</span>
+      <span class="mod-tag">Auto Car Flip</span>
+      <span class="mod-tag">RZ Item Status</span>
+      <span class="mod-tag">RAG Base Items</span>
+      <span class="mod-tag">RAG Core</span>
+      <span class="mod-tag">3D Printer</span>
+      <span class="mod-tag">Triumph Tent Fix</span>
+      <span class="mod-tag highlight">RZ Battle Pass</span>
+      <span class="mod-tag">VVN Mini House with Garage</span>
+      <span class="mod-tag">Code Lock</span>
+      <span class="mod-tag">RZ Collectible</span>
+      <span class="mod-tag highlight">BS Hacked Crate</span>
+      <span class="mod-tag highlight">MREs</span>
+    </div>
   </div>
 </section>
 
@@ -1191,8 +1226,85 @@
   <div class="container">
     <span class="section-tag">// FROM CHERNARUS</span>
     <h2 class="section-title">Screenshots</h2>
-    <div class="gallery-coming-soon" style="text-align:center; padding: 3rem 1rem; border: 1px dashed var(--border); color: var(--muted); font-family:'Share Tech Mono', monospace; letter-spacing: 0.15em; text-transform: uppercase;">
-      Coming Soon
+    <div class="gallery-grid">
+      <div class="gallery-slot">
+        <img src="server_extras/dayz-images/01_DayZ_Struggling Survivor.png" alt="Struggling Survivor" loading="lazy">
+      </div>
+      <div class="gallery-slot">
+        <img src="server_extras/dayz-images/02_DayZ_Resuscitating Unconscious Survivor.jpg" alt="Resuscitating Unconscious Survivor" loading="lazy">
+      </div>
+      <div class="gallery-slot">
+        <img src="server_extras/dayz-images/03_DayZ_Dynamic Contaminated Zones.png" alt="Dynamic Contaminated Zones" loading="lazy">
+      </div>
+      <div class="gallery-slot">
+        <img src="server_extras/dayz-images/04_DayZ_Infected at Novodmitrovsk Town Hall.png" alt="Infected at Novodmitrovsk Town Hall" loading="lazy">
+      </div>
+      <div class="gallery-slot">
+        <img src="server_extras/dayz-images/05_DayZ_Held up by Bandits.png" alt="Held up by Bandits" loading="lazy">
+      </div>
+      <div class="gallery-slot">
+        <img src="server_extras/dayz-images/06_DayZ_Wildlife of Chernarus.png" alt="Wildlife of Chernarus" loading="lazy">
+      </div>
+      <div class="gallery-slot">
+        <img src="server_extras/dayz-images/07_DayZ_Battle at a Military Barrack.png" alt="Battle at a Military Barrack" loading="lazy">
+      </div>
+      <div class="gallery-slot">
+        <img src="server_extras/dayz-images/08_DayZ_Semi-geared Survivors.png" alt="Semi-geared Survivors" loading="lazy">
+      </div>
+      <div class="gallery-slot">
+        <img src="server_extras/dayz-images/09_DayZ_Looting a Helicrash.png" alt="Looting a Helicrash" loading="lazy">
+      </div>
+      <div class="gallery-slot">
+        <img src="server_extras/dayz-images/10_DayZ_Chernarus Landscape.png" alt="Chernarus Landscape" loading="lazy">
+      </div>
+      <div class="gallery-slot">
+        <img src="server_extras/dayz-images/11_DayZ_NBC Suit at Dynamic Contaminated Zone.png" alt="NBC Suit at Dynamic Contaminated Zone" loading="lazy">
+      </div>
+      <div class="gallery-slot">
+        <img src="server_extras/dayz-images/12_DayZ_Yellow King with all firearms in DayZ.png" alt="Yellow King with all firearms" loading="lazy">
+      </div>
+      <div class="gallery-slot">
+        <img src="server_extras/dayz-images/13_DayZ_Chernogorsk Apartment Complex.png" alt="Chernogorsk Apartment Complex" loading="lazy">
+      </div>
+      <div class="gallery-slot">
+        <img src="server_extras/dayz-images/14_DayZ_Basebuilding in Livonia.png" alt="Basebuilding in Livonia" loading="lazy">
+      </div>
+      <div class="gallery-slot">
+        <img src="server_extras/dayz-images/15_DayZ_Make shift camp under the Milky Way.png" alt="Makeshift camp under the Milky Way" loading="lazy">
+      </div>
+      <div class="gallery-slot">
+        <img src="server_extras/dayz-images/16_DayZ_Night Sentry.png" alt="Night Sentry" loading="lazy">
+      </div>
+      <div class="gallery-slot">
+        <img src="server_extras/dayz-images/17_DayZ_Hunting at Krona Castle.png" alt="Hunting at Krona Castle" loading="lazy">
+      </div>
+      <div class="gallery-slot">
+        <img src="server_extras/dayz-images/19_DayZ_Surviors in Livonia Bunker.png" alt="Survivors in Livonia Bunker" loading="lazy">
+      </div>
+      <div class="gallery-slot">
+        <img src="server_extras/dayz-images/20_DayZ_Loggin in Livonia.png" alt="Logging in Livonia" loading="lazy">
+      </div>
+      <div class="gallery-slot">
+        <img src="server_extras/dayz-images/21_DayZ_Livonia livestock farms.png" alt="Livonia livestock farms" loading="lazy">
+      </div>
+      <div class="gallery-slot">
+        <img src="server_extras/dayz-images/22_DayZ_Ambush.png" alt="Ambush" loading="lazy">
+      </div>
+      <div class="gallery-slot">
+        <img src="server_extras/dayz-images/23_DayZ_Face off with a Bear.png" alt="Face off with a Bear" loading="lazy">
+      </div>
+      <div class="gallery-slot">
+        <img src="server_extras/dayz-images/24_DayZ_Fishing in thunderstorm.png" alt="Fishing in thunderstorm" loading="lazy">
+      </div>
+      <div class="gallery-slot">
+        <img src="server_extras/dayz-images/DayZ_Bori_4K.png" alt="DayZ Bori 4K" loading="lazy">
+      </div>
+      <div class="gallery-slot">
+        <img src="server_extras/dayz-images/DayZ_Hannah_4k.jpg" alt="DayZ Hannah 4K" loading="lazy">
+      </div>
+      <div class="gallery-slot">
+        <img src="server_extras/dayz-images/DayZ_Livonia_4K.png" alt="DayZ Livonia 4K" loading="lazy">
+      </div>
     </div>
   </div>
 </section>
