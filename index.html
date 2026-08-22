@@ -590,12 +590,13 @@
     // Show baseline immediately, then update with real hit
     render(START_BASE);
 
-    fetch('https://api.countapi.xyz/hit/nocturniaservers.com/visits')
+    // countapi.xyz is dead — using maintained drop-in: countapi.mileshilliard.com
+    fetch('https://countapi.mileshilliard.com/api/v1/hit/nocturniaservers-visits')
       .then(function (r) { return r.json(); })
       .then(function (data) {
-        var value = (data && typeof data.value === 'number') ? data.value : 0;
-        // Display = max(START_BASE, START_BASE + real hits - 1) so first visitor sees 001000
-        // After N real hits, show START_BASE + N - 1 (first hit = 1000)
+        var raw = (data && data.value != null) ? data.value : 0;
+        var value = typeof raw === 'number' ? raw : parseInt(raw, 10) || 0;
+        // First hit shows 001000; each new visit +1
         render(START_BASE + Math.max(0, value - 1));
       })
       .catch(function () {
