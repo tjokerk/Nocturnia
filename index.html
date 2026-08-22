@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nocturnia Gaming Network</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after {
     box-sizing: border-box;
@@ -317,6 +317,56 @@
     border-radius: 8px;
   }
 
+  /* Visitor counter – bottom left, matches badge style */
+  .visitor-counter {
+    position: absolute;
+    bottom: 1.6rem;
+    left: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 15px;
+    background: #161616;
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--accent);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    overflow: hidden;
+    min-width: 152px;
+    border-radius: 8px;
+  }
+
+  .visitor-label {
+    font-size: 6.5px;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    opacity: 0.9;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .odometer {
+    display: flex;
+    gap: 3px;
+    font-family: 'Share Tech Mono', 'Courier New', monospace;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--text);
+  }
+
+  .odometer .digit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 14px;
+    height: 22px;
+    background: #0c0c0c;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 2px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.6);
+  }
+
   .tactical-visor {
     position: relative;
     width: 66px;
@@ -405,6 +455,10 @@
       position: static;
       margin: 2rem auto 0;
     }
+    .visitor-counter {
+      position: static;
+      margin: 1.5rem auto 0;
+    }
   }
 </style>
 </head>
@@ -484,6 +538,18 @@
     Copyright © 2025 Nocturnia Gaming Network - All Rights Reserved.
   </div>
 
+  <div class="visitor-counter" id="visitor-counter" title="Site visits">
+    <span class="visitor-label">Visitors to Nocturnia</span>
+    <div class="odometer" id="odometer" aria-live="polite">
+      <span class="digit">0</span>
+      <span class="digit">0</span>
+      <span class="digit">1</span>
+      <span class="digit">0</span>
+      <span class="digit">0</span>
+      <span class="digit">0</span>
+    </div>
+  </div>
+
   <div class="dayz-badge-container">
     <div class="tactical-visor">
       <div class="laser-scanner"></div>
@@ -505,6 +571,38 @@
     current = (current + 1) % backgrounds.length;
     backgrounds[current].classList.add('active');
   }, 20000);
+
+  // Visitor counter (shared count via CountAPI)
+  (function () {
+    const START_BASE = 1000; // display floor so the odometer doesn't look empty
+    const DIGITS = 6;
+    const odometer = document.getElementById('odometer');
+    if (!odometer) return;
+
+    function render(n) {
+      const s = String(Math.max(0, Math.floor(n))).padStart(DIGITS, '0').slice(-DIGITS);
+      const spans = odometer.querySelectorAll('.digit');
+      for (let i = 0; i < DIGITS; i++) {
+        if (spans[i]) spans[i].textContent = s[i];
+      }
+    }
+
+    // Show baseline immediately, then update with real hit
+    render(START_BASE);
+
+    fetch('https://api.countapi.xyz/hit/nocturniaservers.com/visits')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        var value = (data && typeof data.value === 'number') ? data.value : 0;
+        // Display = max(START_BASE, START_BASE + real hits - 1) so first visitor sees 001000
+        // After N real hits, show START_BASE + N - 1 (first hit = 1000)
+        render(START_BASE + Math.max(0, value - 1));
+      })
+      .catch(function () {
+        // Offline / blocked: keep baseline
+        render(START_BASE);
+      });
+  })();
 </script>
 
 </body>
